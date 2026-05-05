@@ -1,0 +1,227 @@
+.japa-page {
+  padding-top: 80px;
+  background: var(--bg-light);
+  min-height: 100vh;
+}
+
+.japa-hero {
+  padding: 40px 0;
+  color: white;
+  text-align: center;
+  margin-bottom: -20px;
+}
+
+@media (max-width: 768px) {
+  .japa-hero {
+    padding: 30px 15px;
+  }
+}
+
+.japa-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.japa-hero p {
+  max-width: 600px;
+  margin: 2rem auto;
+  opacity: 0.9;
+}
+
+.japa-container {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+}
+
+.japa-main {
+  padding: 20px;
+  text-align: center;
+}
+
+.mantra-selector {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.mantra-selector select {
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: 1px solid var(--glass-border);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.counter-display {
+  position: relative;
+  margin: 20px auto;
+}
+
+.progress-circle {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+}
+
+.progress-circle svg {
+  transform: rotate(-90deg);
+}
+
+.progress-circle circle {
+  fill: none;
+  stroke-width: 8;
+  stroke-linecap: round;
+}
+
+.progress-circle .bg {
+  stroke: rgba(0, 0, 0, 0.05);
+}
+
+.progress-circle .progress {
+  stroke: var(--primary);
+  stroke-dasharray: 283;
+  transition: stroke-dashoffset 0.3s ease;
+}
+
+.count-numbers {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.current-count {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+.target-label {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.active-mantra {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-top: 10px;
+  font-style: italic;
+}
+
+.japa-controls {
+  margin-top: 20px;
+}
+
+.tap-button {
+  width: 120px;
+  height: 120px;
+  background: var(--saffron-gradient);
+  border-radius: 50%;
+  border: 10px solid white;
+  box-shadow: 0 10px 30px var(--primary-glow);
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tap-button:active {
+  transform: scale(0.9);
+}
+
+.bead-inner {
+  color: white;
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: 2px;
+}
+
+.alt-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.target-input {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.target-input input {
+  width: 70px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+  text-align: center;
+  font-weight: 700;
+}
+
+.japa-stats-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.stat-card h4 {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  font-family: 'Outfit', sans-serif;
+}
+
+.japa-info h4 {
+  color: var(--primary);
+  margin-bottom: 15px;
+}
+
+@media (max-width: 992px) {
+  .japa-main,
+  .japa-info {
+    text-align: center;
+  }
+  .japa-stats-sidebar {
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 992px) {
+  .japa-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 576px) {
+  .progress-circle {
+    width: 220px;
+    height: 220px;
+  }
+
+  .current-count {
+    font-size: 3.5rem;
+  }
+}

@@ -1,0 +1,423 @@
+.home-page {
+  padding-bottom: 4rem;
+}
+
+.welcome-section {
+  padding: 5rem 2rem;
+  text-align: center;
+}
+
+.welcome-content .section-title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .welcome-content .section-title {
+    margin-top: 1rem;
+  }
+}
+
+.home-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.feature-card {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  text-align: center;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(255, 153, 51, 0.1);
+  border-color: var(--primary);
+}
+
+.feature-icon {
+  font-size: 3rem;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.feature-card h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.feature-card p {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.text-link {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--primary);
+  font-weight: 600;
+  transition: transform 0.3s ease;
+}
+
+.text-link:hover {
+  transform: translateX(5px);
+}
+
+/* Timings Section */
+.timings-section {
+  background: #fff9f2;
+  padding: 4rem 0;
+  margin-top: 0;
+}
+
+.timings-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.timing-list {
+  margin-top: 2rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
+}
+
+.timing-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 1.2rem 0;
+  border-bottom: 1px solid rgba(255, 153, 51, 0.1);
+}
+
+.timing-item:last-child {
+  border-bottom: none;
+}
+
+.timing-item.highlighting {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+.timing-name {
+  font-weight: 500;
+}
+
+.panchangam-card {
+  padding: 3rem;
+  border-left: 5px solid var(--primary);
+}
+
+.panchangam-card h3 {
+  margin-bottom: 2rem;
+  color: var(--primary);
+  font-size: 1.8rem;
+}
+
+.panchang-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+@media (max-width: 480px) {
+  .panchang-details {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.p-item span {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  display: block;
+}
+
+.sun-timings {
+  display: flex;
+  gap: 2rem;
+  padding-top: 2rem;
+  border-top: 1px dashed var(--glass-border);
+}
+
+/* Events Section */
+.events-section {
+  padding: 6rem 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.event-card {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .event-card {
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-card {
+    flex-direction: column;
+  }
+}
+
+.event-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--saffron-gradient);
+  color: white;
+  padding: 1rem;
+  border-radius: 12px;
+  min-width: 90px;
+}
+
+.event-date .day {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.event-date .month {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.event-content h3 {
+  margin-bottom: 0.5rem;
+}
+
+.event-content p {
+  font-size: 0.95rem;
+  margin-bottom: 0;
+}
+
+@media (max-width: 992px) {
+
+  .timings-grid,
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timings-grid {
+    gap: 3rem;
+  }
+}
+
+/* Divine Story Section */
+.divine-story {
+  padding: 8rem 0;
+}
+
+.story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .story-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+}
+
+.story-image-container {
+  position: relative;
+}
+
+.story-img {
+  width: 100%;
+  border-radius: 30px;
+  box-shadow: 0 20px 50px rgba(255, 153, 51, 0.2);
+  border: 8px solid white;
+}
+
+.img-caption {
+  position: absolute;
+  bottom: -15px;
+  right: -10px;
+  background: var(--saffron-gradient);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  box-shadow: var(--shadow-md);
+  z-index: 5;
+}
+
+@media (max-width: 480px) {
+  .img-caption {
+    right: 10px;
+    bottom: 10px;
+    font-size: 0.75rem;
+    padding: 0.6rem 1.2rem;
+  }
+}
+
+.story-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 992px) {
+  .story-text {
+    text-align: center;
+  }
+}
+
+.temple-brief {
+  margin: 2.5rem 0;
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (max-width: 992px) {
+  .temple-brief {
+    justify-items: center;
+    text-align: center;
+  }
+  .brief-item {
+    border-left: none;
+    border-top: 3px solid var(--primary);
+    padding-left: 0;
+    padding-top: 1rem;
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+.brief-item {
+  display: flex;
+  flex-direction: column;
+  padding-left: 1.5rem;
+  border-left: 3px solid var(--primary);
+}
+
+.brief-item strong {
+  color: var(--primary);
+  margin-bottom: 0.3rem;
+  font-size: 1rem;
+}
+
+.brief-item span {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* Sankat Mochan Section */
+.sankat-mochan {
+  padding: 6rem 0;
+  margin-top: 0;
+  background: var(--bg-light);
+  text-align: center;
+}
+
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 3rem 0;
+}
+
+.problem-card {
+  padding: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid var(--glass-border);
+}
+
+.problem-card:hover,
+.problem-card.active {
+  border-color: var(--primary);
+  background: white;
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+}
+
+.problem-card.active {
+  background: var(--saffron-gradient);
+  color: white;
+}
+
+.problem-icon {
+  font-size: 2.5rem;
+  display: block;
+  margin-bottom: 15px;
+}
+
+.problem-label {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.solution-display {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px 20px;
+  border-left: 5px solid var(--primary);
+  text-align: left;
+}
+
+@media (max-width: 992px) {
+  .solution-display {
+    text-align: center;
+    border-left: none;
+    border-top: 5px solid var(--primary);
+  }
+}
+
+.solution-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 30px;
+  margin: 2rem 0;
+}
+
+.detail-item span {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+}
+
+.detail-item strong {
+  font-size: 1.2rem;
+  color: var(--primary);
+}
+
+@media (max-width: 768px) {
+
+  .divine-story,
+  .sankat-mochan {
+    padding: 5rem 0;
+  }
+}

@@ -1,0 +1,261 @@
+.about-page {
+  padding-top: 80px;
+  background: var(--bg-light);
+}
+
+.about-hero {
+  /* background: var(--saffron-gradient); */
+  padding: 100px 0 60px;
+  color: white;
+  text-align: center;
+}
+
+.about-hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.about-hero p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.about-intro {
+  margin-top: -12rem;
+  padding: 4rem 0;
+}
+
+@media (max-width: 992px) {
+  .about-intro {
+    margin-top: 0;
+    padding: 3rem 0;
+  }
+}
+
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.highlight-text {
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+@media (max-width: 992px) {
+  .highlight-text {
+    text-align: center;
+  }
+  .about-intro p {
+    text-align: center;
+  }
+}
+
+.about-main-img {
+  width: 100%;
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(255, 153, 51, 0.2);
+}
+
+.story-row {
+  display: grid;
+  margin-top: -6rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  padding: 4rem 0;
+}
+
+@media (max-width: 992px) {
+  .story-row {
+    margin-top: 0;
+    padding: 2rem 0;
+  }
+}
+
+.story-row.reverse {
+  direction: rtl;
+}
+
+.story-row.reverse .story-info {
+  direction: ltr;
+}
+
+.story-img-container {
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.story-image-main {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 15px;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .story-image-main {
+    height: 300px;
+  }
+}
+
+.story-image-main:hover {
+  transform: scale(1.02);
+}
+
+.final-image-container {
+  margin: 3rem auto 0;
+  max-width: 800px;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  border: 5px solid white;
+}
+
+.about-final-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.about-final-img:hover {
+  transform: scale(1.05);
+}
+
+.divine-names {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: rgba(255, 153, 51, 0.05);
+  border-radius: 15px;
+}
+
+.name-tags {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 992px) {
+  .name-tags {
+    justify-content: center;
+  }
+  .divine-names {
+    text-align: center;
+  }
+}
+
+.name-tags span {
+  background: white;
+  padding: 0.5rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 700;
+  color: var(--primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.key-deeds {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.deed-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem 2rem;
+}
+
+@media (max-width: 992px) {
+  .deed-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+}
+
+.deed-icon {
+  font-size: 2rem;
+  background: white;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: var(--shadow-sm);
+}
+
+.deed-card p {
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+.spiritual-significance {
+  padding: 8rem 0;
+}
+
+.significance-card {
+  padding: 4rem;
+  text-align: center;
+}
+
+.sig-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  margin: 4rem 0;
+}
+
+.sig-item h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+}
+
+.chalisa-callout {
+  padding: 2.5rem;
+  background: var(--saffron-gradient);
+  border-radius: 20px;
+  color: white;
+  margin: 3rem 0;
+}
+
+.chalisa-callout p {
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-style: italic;
+  margin-bottom: 0;
+}
+
+@media (max-width: 992px) {
+
+  .intro-grid,
+  .story-row,
+  .sig-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .story-row.reverse {
+    direction: ltr;
+  }
+
+  .about-hero h1 {
+    font-size: 2.5rem;
+  }
+
+  .significance-card {
+    padding: 2rem;
+  }
+}

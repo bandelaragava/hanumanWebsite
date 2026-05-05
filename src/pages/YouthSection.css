@@ -1,0 +1,110 @@
+.youth-section {
+  padding: 100px 0;
+  background: transparent;
+}
+
+.youth-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+}
+
+.content-badge {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.youth-content h3 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.tips-list {
+  margin: 30px 0;
+}
+
+.tips-list li {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.youth-image-container {
+  position: relative;
+  height: 500px;
+  background: linear-gradient(45deg, #222, #333);
+  border-radius: 30px;
+  display: flex;
+  align-items: flex-end;
+  padding: 40px;
+  overflow: hidden;
+}
+
+.image-overlay-text {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  font-size: 2rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  max-width: 200px;
+  line-height: 1.2;
+}
+
+.fitness-stats {
+  width: 100%;
+}
+
+.stat {
+  margin-bottom: 15px;
+}
+
+.stat span {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  margin-bottom: 5px;
+}
+
+.bar {
+  height: 8px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+}
+
+.fill {
+  height: 100%;
+  background: var(--saffron-gradient);
+  border-radius: 4px;
+  box-shadow: 0 0 10px var(--primary-glow);
+}
+
+@media (max-width: 992px) {
+  .youth-grid {
+    grid-template-columns: 1fr;
+  }
+  .youth-image-container {
+    height: 400px;
+  }
+}
+
+@media (max-width: 576px) {
+  .youth-content h3 {
+    font-size: 1.8rem;
+  }
+  .image-overlay-text {
+    font-size: 1.5rem;
+  }
+  .youth-image-container {
+    height: 350px;
+    padding: 20px;
+  }
+}

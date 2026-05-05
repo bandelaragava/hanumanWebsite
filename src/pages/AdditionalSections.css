@@ -1,0 +1,154 @@
+.store-section, .live-section {
+  padding: 100px 0;
+  background: transparent;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.product-card {
+  text-align: center;
+}
+
+.product-image {
+  height: 200px;
+  overflow: hidden;
+  border-radius: 15px;
+  margin-bottom: 20px;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.product-card:hover img {
+  transform: scale(1.1);
+}
+
+.product-card h4 {
+  margin-bottom: 10px;
+}
+
+.product-card .price {
+  color: var(--primary);
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.live-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+}
+
+.video-stream {
+  position: relative;
+  height: 400px;
+  padding: 0;
+  overflow: hidden;
+}
+
+.stream-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.live-tag {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: red;
+  color: white;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-weight: 800;
+  z-index: 10;
+}
+
+.stream-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 40px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.play-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.meditation-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: 40px;
+}
+
+.audio-player {
+  margin-top: 30px;
+  padding: 20px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 15px;
+}
+
+.track-info {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 992px) {
+  .track-info {
+    text-align: center;
+  }
+}
+
+@media (max-width: 992px) {
+  .live-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-stream {
+    height: 300px;
+  }
+  .stream-overlay {
+    padding: 20px;
+    gap: 15px;
+  }
+  .play-icon {
+    width: 45px;
+    height: 45px;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .store-section, .live-section {
+    padding: 60px 0;
+  }
+  .product-grid {
+    grid-template-columns: 1fr;
+  }
+}
