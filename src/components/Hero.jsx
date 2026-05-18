@@ -1,19 +1,21 @@
 import { Link } from 'react-router-dom';
+import { useData } from '../context/DataContext';
 import './Hero.css';
 
 const Hero = ({ heroImage }) => {
+  const { heroContent } = useData();
+
   return (
     <section className="hero-section" id="home">
       <div className="hero-overlay"></div>
       <img src={heroImage} alt="Majestic Hanuman" className="hero-bg-image" />
       
       <div className="container hero-content animate-fade-in">
-        <h1 className="hero-title">
-          Divine Strength <br />
-          <span>Infinite Protection</span>
+        <h1 className="hero-title" style={{ whiteSpace: 'pre-line' }}>
+          {heroContent.title}
         </h1>
         <p className="hero-subtitle">
-          Experience the spiritual energy of Lord Hanuman, the ultimate symbol of devotion, courage, and selfless service.
+          {heroContent.subtitle}
         </p>
         <div className="hero-actions">
           <Link to="/devotion" className="btn-primary">Explore Devotion</Link>

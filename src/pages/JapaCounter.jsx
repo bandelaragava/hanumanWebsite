@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import './JapaCounter.css';
+import toast from 'react-hot-toast';
+import { useData } from '../context/DataContext';
 
 const JapaCounter = () => {
+  const { japaMantras } = useData();
   const [count, setCount] = useState(0);
   const [totalChants, setTotalChants] = useState(parseInt(localStorage.getItem('totalChants') || '0'));
   const [target, setTarget] = useState(108);
-  const [selectedMantra, setSelectedMantra] = useState('Jai Shri Ram');
+  const [selectedMantra, setSelectedMantra] = useState(japaMantras && japaMantras.length > 0 ? japaMantras[0] : 'Jai Shri Ram');
   const [malasCompleted, setMalasCompleted] = useState(0);
 
-  const mantras = [
-    'Jai Shri Ram',
-    'Om Ham Hanumate Namaha',
-    'Jai Bajrangbali',
-    'Sankat Mochan Hanumate Namaha'
-  ];
+  // Sync selectedMantra if the dynamic list updates
+  useEffect(() => {
+    if (japaMantras && japaMantras.length > 0 && !japaMantras.includes(selectedMantra)) {
+      setSelectedMantra(japaMantras[0]);
+    }
+  }, [japaMantras]);
 
   useEffect(() => {
     localStorage.setItem('totalChants', totalChants);
@@ -27,7 +30,7 @@ const JapaCounter = () => {
     if (newCount >= target) {
       setMalasCompleted(malasCompleted + 1);
       setCount(0);
-      alert('Congratulations! One Mala completed. 🙏');
+      toast.success('Congratulations! One Mala completed. 🙏');
     }
 
     // Play a subtle sound or vibrate if supported
@@ -37,9 +40,8 @@ const JapaCounter = () => {
   };
 
   const resetCounter = () => {
-    if (window.confirm('Reset current count?')) {
-      setCount(0);
-    }
+    setCount(0);
+    toast('Counter reset', { icon: '🔄' });
   };
 
   const progressPercentage = (count / target) * 100;
@@ -58,7 +60,7 @@ const JapaCounter = () => {
           <div className="mantra-selector">
             <label>Select Mantra:</label>
             <select value={selectedMantra} onChange={(e) => setSelectedMantra(e.target.value)}>
-              {mantras.map(m => <option key={m} value={m}>{m}</option>)}
+              {japaMantras.map(m => <option key={m} value={m}>{m}</option>)}
             </select>
           </div>
 

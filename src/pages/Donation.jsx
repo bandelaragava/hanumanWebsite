@@ -1,10 +1,35 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Donation.css';
+import toast from 'react-hot-toast';
 
 const Donation = () => {
   const [amount, setAmount] = useState('');
   const [selectedTier, setSelectedTier] = useState(null);
-  const [step, setStep] = useState(1); // 1: Amount, 2: Details, 3: Payment Mock
+  const [step, setStep] = useState(1); // 1: Amount, 2: Details, 3: Payment Mock, 4: Status
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [paymentStatus, setPaymentStatus] = useState(null); // 'success' or 'error'
+
+  const handleConfirmPayment = () => {
+    setIsProcessing(true);
+    
+    // Simulate payment processing delay
+    setTimeout(() => {
+      setIsProcessing(false);
+      // Simulate success 90% of the time for demo purposes
+      const isSuccess = Math.random() > 0.1;
+      
+      if (isSuccess) {
+        setPaymentStatus('success');
+        setStep(4);
+        toast.success('Jai Shri Ram! Donation Successful.');
+      } else {
+        setPaymentStatus('error');
+        setStep(4);
+        toast.error('Payment failed. Please try again or use another method.');
+      }
+    }, 2000);
+  };
 
   const tiers = [
     { label: 'Basic Seva', amount: 501, icon: '🙏' },
@@ -106,26 +131,63 @@ const Donation = () => {
           {step === 3 && (
             <div className="step-content payment-mock">
               <h3>Secure Payment Gateway</h3>
-              <div className="qr-section">
-                <div className="qr-placeholder">
-                  <span className="qr-icon">📱</span>
-                  <p>Scan to Pay with UPI</p>
-                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=HanumanTempleUPI" alt="QR Code" />
+              {isProcessing ? (
+                <div className="processing-state">
+                  <div className="spinner"></div>
+                  <p>Processing your sacred contribution...</p>
                 </div>
-                <div className="payment-options">
-                  <p>Or use other methods:</p>
-                  <div className="payment-icons">
-                    <span>💳 Card</span>
-                    <span>🏦 Net Banking</span>
-                    <span>💰 Wallet</span>
+              ) : (
+                <>
+                  <div className="qr-section">
+                    <div className="qr-placeholder">
+                      <span className="qr-icon">📱</span>
+                      <p>Scan to Pay with UPI</p>
+                      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=HanumanTempleUPI" alt="QR Code" />
+                    </div>
+                    <div className="payment-options">
+                      <p>Or use other methods:</p>
+                      <div className="payment-icons">
+                        <span>💳 Card</span>
+                        <span>🏦 Net Banking</span>
+                        <span>💰 Wallet</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="trust-badges">
+                    <span>🔒 SSL Secured</span>
+                    <span>✅ Tax Benefit (80G)</span>
+                  </div>
+                  <button className="btn-primary btn-full" onClick={handleConfirmPayment}>Confirm Payment</button>
+                </>
+              )}
+            </div>
+          )}
+
+          {step === 4 && (
+            <div className="step-content status-screen animate-fade-in">
+              {paymentStatus === 'success' ? (
+                <div className="status-message success">
+                  <div className="status-icon">🙏</div>
+                  <h3>Donation Successful!</h3>
+                  <p>Jai Shri Ram! Your contribution of <strong>₹{amount}</strong> has been received with gratitude.</p>
+                  <p>A digital receipt and 80G certificate have been sent to your email.</p>
+                  <div className="status-actions">
+                    <button className="btn-primary" onClick={() => window.location.reload()}>Make Another Donation</button>
+                    <Link to="/" className="btn-outline">Back to Home</Link>
                   </div>
                 </div>
-              </div>
-              <div className="trust-badges">
-                <span>🔒 SSL Secured</span>
-                <span>✅ Tax Benefit (80G)</span>
-              </div>
-              <button className="btn-primary btn-full" onClick={() => alert('Jai Shri Ram! Donation Successful.')}>Confirm Payment</button>
+              ) : (
+                <div className="status-message error">
+                  <div className="status-icon">⚠️</div>
+                  <h3>Payment Issue</h3>
+                  <p>We encountered a problem processing your payment. No funds were deducted.</p>
+                  <p>Please check your connection or try a different payment method.</p>
+                  <div className="status-actions">
+                    <button className="btn-primary" onClick={() => setStep(3)}>Try Again</button>
+                    <Link to="/contact" className="btn-outline">Contact Support</Link>
+                  </div>
+                </div>
+              )}
             </div>
           )}
         </div>

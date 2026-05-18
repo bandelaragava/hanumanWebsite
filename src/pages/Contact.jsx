@@ -1,10 +1,11 @@
 import React from 'react';
 import './Contact.css';
+import toast from 'react-hot-toast';
 
 const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Thank you for your message! We will get back to you soon.');
+    toast.success('Thank you for your message! We will get back to you soon.');
     e.target.reset();
   };
 

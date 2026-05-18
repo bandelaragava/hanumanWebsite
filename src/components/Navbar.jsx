@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useData } from '../context/DataContext';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -9,6 +10,9 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const { cart } = useData();
+
+  const cartCount = cart ? cart.reduce((sum, item) => sum + item.quantity, 0) : 0;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,7 +26,7 @@ const Navbar = () => {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Devotion', path: '/devotion' },
-    { name: 'Seva', path: '/seva' },
+    { name: 'Booking', path: '/seva' },
     { name: 'Store', path: '/store' },
     { name: 'Japa Mala', path: '/japa' },
     { name: 'Contact', path: '/contact' },
@@ -40,7 +44,7 @@ const Navbar = () => {
   const dashboardPath = user?.role === 'admin' ? '/admin' : '/dashboard';
 
   return (
-    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isTransparent ? 'transparent' : ''}`}>
+    <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isTransparent ? 'transparent' : ''} ${isMenuOpen ? 'menu-open' : ''}`}>
       <div className="container nav-container">
         <Link to="/" className="logo" onClick={() => setIsMenuOpen(false)}>
           <span className="logo-icon">🕉️</span>
@@ -60,18 +64,23 @@ const Navbar = () => {
             </li>
           ))}
           <li>
-            <Link to="/donate" className="btn-primary" onClick={() => setIsMenuOpen(false)}>Donate</Link>
+            <Link to="/donate" className="nav-simple-btn" onClick={() => setIsMenuOpen(false)}>Donate</Link>
+          </li>
+          <li>
+            <Link to="/cart" className="nav-cart-btn" onClick={() => setIsMenuOpen(false)}>
+              <span>🛒</span>
+              {cartCount > 0 && <span className="cart-badge">{cartCount}</span>}
+            </Link>
           </li>
           {user ? (
-            <li className="nav-user-menu">
-              <Link to={dashboardPath} className="nav-avatar-btn" onClick={() => setIsMenuOpen(false)}>
-                🧑‍🦱 {user.name.split(' ')[0]}
+            <li>
+              <Link to={dashboardPath} className="nav-simple-outline" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', whiteSpace: 'nowrap' }} onClick={() => setIsMenuOpen(false)}>
+                <span>🧑‍🦱</span> <span>{user.name.split(' ')[0]}</span>
               </Link>
-              <button className="nav-logout-btn" onClick={handleLogout}>Logout</button>
             </li>
           ) : (
             <li>
-              <Link to="/login" className="nav-login-btn" onClick={() => setIsMenuOpen(false)}>Login</Link>
+              <Link to="/login" className="nav-simple-btn" onClick={() => setIsMenuOpen(false)}>Login</Link>
             </li>
           )}
         </ul>

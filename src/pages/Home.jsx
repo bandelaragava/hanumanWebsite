@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import heroImg from '../assets/hero.png';
 import legendImg from '../assets/hanuman_legend.png';
+import { useData } from '../context/DataContext';
 import './Home.css';
 
 const Home = () => {
+  const { timings, events } = useData();
   const [selectedProblem, setSelectedProblem] = useState(null);
 
   const problems = [
@@ -136,18 +138,12 @@ const Home = () => {
               <h2 className="section-title" style={{textAlign: 'left'}}>Temple Timings</h2>
               <p>Join us for daily rituals and experience the divine energy.</p>
               <div className="timing-list">
-                <div className="timing-item">
-                  <span className="timing-name">Morning Darshan</span>
-                  <span className="timing-value">6:00 AM - 12:30 PM</span>
-                </div>
-                <div className="timing-item">
-                  <span className="timing-name">Evening Darshan</span>
-                  <span className="timing-value">4:30 PM - 9:00 PM</span>
-                </div>
-                <div className="timing-item highlighting">
-                  <span className="timing-name">Daily Aarti</span>
-                  <span className="timing-value">7:00 PM</span>
-                </div>
+                {timings.map((t) => (
+                  <div key={t.id} className={`timing-item ${t.highlighting ? 'highlighting' : ''}`}>
+                    <span className="timing-name">{t.name}</span>
+                    <span className="timing-value">{t.value}</span>
+                  </div>
+                ))}
               </div>
               <Link to="/live" className="btn-primary" style={{marginTop: '2rem', display: 'inline-block'}}>Watch Live Aarti</Link>
             </div>
@@ -172,26 +168,18 @@ const Home = () => {
         <h2 className="section-title">Upcoming Events</h2>
         <p className="section-subtitle">Stay updated with the latest celebrations and spiritual gatherings.</p>
         <div className="events-grid">
-          <div className="event-card glass-card">
-            <div className="event-date">
-              <span className="day">15</span>
-              <span className="month">MAY</span>
+          {events.map((e) => (
+            <div key={e.id} className="event-card glass-card">
+              <div className="event-date">
+                <span className="day">{e.date}</span>
+                <span className="month">{e.month}</span>
+              </div>
+              <div className="event-content">
+                <h3>{e.title}</h3>
+                <p>{e.desc}</p>
+              </div>
             </div>
-            <div className="event-content">
-              <h3>Hanuman Jayanti</h3>
-              <p>Grand celebration with Akhanda Chalisa Path and special Abhishekam.</p>
-            </div>
-          </div>
-          <div className="event-card glass-card">
-            <div className="event-date">
-              <span className="day">22</span>
-              <span className="month">MAY</span>
-            </div>
-            <div className="event-content">
-              <h3>Sundarkand Path</h3>
-              <p>Join our community for a powerful collective recitation of Sundarkand.</p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
     </div>

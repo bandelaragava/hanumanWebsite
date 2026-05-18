@@ -2,13 +2,11 @@ import React from 'react';
 import './AdditionalSections.css';
 import storeImg from '../assets/store.png';
 import altarImg from '../assets/altar.png';
+import toast from 'react-hot-toast';
+import { useData } from '../context/DataContext';
 
 export const Store = () => {
-  const products = [
-    { name: 'Bronze Hanuman Idol', price: '₹4,999', img: storeImg },
-    { name: 'Siddha Rudraksha Mala', price: '₹1,250', img: storeImg },
-    { name: 'Hanuman Chalisa Gold Edition', price: '₹850', img: storeImg },
-  ];
+  const { products, addToCart } = useData();
 
   return (
     <section className="store-section" id="store">
@@ -17,14 +15,21 @@ export const Store = () => {
         <p className="section-subtitle">Take home a symbol of strength and protection.</p>
         
         <div className="product-grid">
-          {products.map((p, i) => (
-            <div key={i} className="product-card glass-card">
+          {products.map((p) => (
+            <div key={p.id} className="product-card glass-card">
               <div className="product-image">
-                <img src={p.img} alt={p.name} />
+                <img 
+                  src={p.img || storeImg} 
+                  alt={p.name} 
+                  onError={(e) => {
+                    e.target.src = storeImg;
+                    e.target.onerror = null;
+                  }}
+                />
               </div>
               <h4>{p.name}</h4>
               <p className="price">{p.price}</p>
-              <button className="btn-primary" onClick={() => alert(`${p.name} added to cart!`)}>Add to Cart</button>
+              <button className="btn-primary" onClick={() => addToCart(p)}>Add to Cart</button>
             </div>
           ))}
         </div>
@@ -45,7 +50,7 @@ export const LiveExperience = () => {
             <div className="live-tag">LIVE</div>
             <img src={altarImg} alt="Live Stream" className="stream-placeholder" />
             <div className="stream-overlay">
-              <button className="play-icon" onClick={() => alert('Starting live stream...')}>▶</button>
+              <button className="play-icon" onClick={() => toast('Starting live stream...', { icon: '📹' })}>▶</button>
               <span>Evening Aarti starting in 2h 15m</span>
             </div>
           </div>
@@ -58,7 +63,7 @@ export const LiveExperience = () => {
                 <strong>Ram Naam Loop</strong>
                 <span>Continuous Chanting</span>
               </div>
-              <button className="btn-outline" onClick={() => alert('Meditation session started. Jai Shri Ram!')}>Start Meditation</button>
+              <button className="btn-outline" onClick={() => toast.success('Meditation session started. Jai Shri Ram!')}>Start Meditation</button>
             </div>
           </div>
         </div>

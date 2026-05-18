@@ -18,8 +18,9 @@
 
 .nav-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 35px;
 }
 
 .logo {
@@ -54,6 +55,7 @@
   font-size: 1rem;
   letter-spacing: 0.3px;
   position: relative;
+  white-space: nowrap;
 }
 
 .nav-links a::after {
@@ -77,60 +79,45 @@
   color: var(--primary);
 }
 
-/* Login / User Auth Buttons */
-.nav-login-btn {
-  background: var(--saffron-gradient);
+/* Simple Buttons */
+.nav-simple-btn {
+  background: var(--primary);
   color: white !important;
   padding: 8px 20px;
-  border-radius: 50px;
-  font-weight: 700 !important;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 4px 12px var(--primary-glow);
+  border-radius: 6px;
+  font-weight: 600 !important;
+  border: none;
+  box-shadow: none;
+  transition: background 0.2s ease;
 }
 
-.nav-login-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px var(--primary-glow);
+.nav-simple-btn:hover {
+  background: var(--accent);
 }
 
-.nav-login-btn::after {
+.nav-simple-btn::after {
   display: none !important;
 }
 
-.nav-user-menu {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.nav-avatar-btn {
-  background: rgba(255, 153, 51, 0.1);
+.nav-simple-outline {
+  background: transparent;
   color: var(--primary) !important;
-  padding: 7px 14px;
-  border-radius: 50px;
-  font-weight: 700 !important;
-  border: 1px solid rgba(255, 153, 51, 0.3);
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 600 !important;
+  border: 1px solid var(--primary);
+  transition: background 0.2s ease;
 }
 
-.nav-avatar-btn::after {
+.nav-simple-outline:hover {
+  background: rgba(255, 153, 51, 0.1);
+}
+
+.nav-simple-outline::after {
   display: none !important;
 }
 
-.nav-logout-btn {
-  background: none;
-  border: 1px solid rgba(255, 69, 0, 0.3);
-  color: var(--accent);
-  padding: 6px 14px;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
 
-.nav-logout-btn:hover {
-  background: rgba(255, 69, 0, 0.1);
-}
 
 
 .menu-toggle {
@@ -174,34 +161,164 @@
   background: #ffffff;
 }
 
-@media (max-width: 768px) {
+/* Media Queries for Responsiveness */
+
+/* Tablet & Smaller Laptop (769px to 1100px) */
+@media (max-width: 1100px) {
+  .nav-container {
+    gap: 20px;
+    padding: 0 2rem;
+  }
+  
+  .nav-links {
+    gap: 20px;
+  }
+  
+  .nav-links a {
+    font-size: 0.9rem;
+  }
+  
+  .logo {
+    font-size: 1.4rem;
+  }
+}
+
+/* Mobile & Tablet (up to 992px) */
+@media (max-width: 992px) {
+  .navbar {
+    padding: 15px 0;
+  }
+
+  .nav-container {
+    justify-content: space-between;
+    gap: 0;
+    padding: 0 1.5rem;
+  }
+
   .menu-toggle {
     display: block;
+    z-index: 1001;
   }
 
   .nav-links {
-    position: absolute;
-    top: 100%;
+    position: fixed; /* Changed to fixed for full screen overlay */
+    top: 0;
     left: 0;
     width: 100%;
-    background: white; /* Always white background for mobile menu */
+    height: 100vh;
+    background: white;
     flex-direction: column;
-    padding: 40px;
-    gap: 20px;
-    clip-path: circle(0% at 100% 0%);
-    transition: all 0.5s ease-in-out;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  }
-
-  .nav-links a {
-    color: var(--text-primary) !important; /* Mobile menu links always dark */
+    justify-content: flex-start;
+    align-items: center;
+    padding: 100px 40px 40px 40px;
+    gap: 24px;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
   }
 
   .nav-links.active {
-    clip-path: circle(150% at 100% 0%);
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
   }
 
   .nav-links a {
-    font-size: 1.2rem;
+    color: var(--text-primary) !important;
+    font-size: 1.4rem;
+    text-shadow: none !important;
   }
+
+  .logo {
+    font-size: 1.3rem;
+    z-index: 1001;
+  }
+
+  .logo-icon {
+    font-size: 1.8rem;
+  }
+
+  /* Ensure logo text and menu icon are visible against white menu */
+  .navbar.menu-open .logo {
+    color: var(--text-primary) !important;
+  }
+  
+  .navbar.menu-open .logo-text span {
+    color: var(--primary) !important;
+  }
+
+  .navbar.menu-open .hamburger::before,
+  .navbar.menu-open .hamburger::after {
+    background: var(--text-primary) !important;
+  }
+}
+
+/* Very Small Devices */
+@media (max-width: 380px) {
+  .logo {
+    font-size: 1.15rem;
+    gap: 6px;
+  }
+  .logo-icon {
+    font-size: 1.5rem;
+  }
+  .nav-container {
+    padding: 0 0.8rem;
+  }
+}
+
+/* Cart Button and Badge styles */
+.nav-cart-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 153, 51, 0.1);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.nav-cart-btn:hover {
+  background: rgba(255, 153, 51, 0.2);
+  transform: scale(1.05);
+}
+
+.nav-cart-btn::after {
+  display: none !important;
+}
+
+.nav-cart-btn span {
+  font-size: 1.2rem;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: var(--accent);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  border: 1px solid white;
+}
+
+.navbar.transparent .nav-cart-btn {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.navbar.transparent .nav-cart-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
 }

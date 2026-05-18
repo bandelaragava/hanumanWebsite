@@ -199,29 +199,98 @@
 }
 
 @media (max-width: 992px) {
-  .japa-main,
-  .japa-info {
-    text-align: center;
-  }
-  .japa-stats-sidebar {
-    align-items: center;
-    text-align: center;
-  }
-}
-
-@media (max-width: 992px) {
   .japa-container {
     grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 0 1.5rem 40px;
+  }
+
+  .japa-main {
+    padding: 30px 20px;
+  }
+
+  .japa-stats-sidebar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .japa-info {
+    grid-column: span 2;
   }
 }
 
 @media (max-width: 576px) {
+  .japa-hero {
+    padding: 40px 1.5rem 20px;
+  }
+
+  .japa-hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .japa-hero p {
+    font-size: 1rem;
+    margin: 1rem auto;
+  }
+
+  .mantra-selector {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .mantra-selector select {
+    width: 100%;
+    max-width: 320px;
+    font-size: 1rem;
+    padding: 12px 20px;
+  }
+
   .progress-circle {
     width: 220px;
     height: 220px;
   }
 
   .current-count {
-    font-size: 3.5rem;
+    font-size: 3rem;
+  }
+
+  .alt-controls {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .tap-button {
+    width: 130px;
+    height: 130px;
+    border-width: 8px;
+  }
+
+  .japa-stats-sidebar {
+    grid-template-columns: 1fr;
+  }
+
+  .japa-info {
+    grid-column: span 1;
+  }
+
+  .stat-number {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .progress-circle {
+    width: 180px;
+    height: 180px;
+  }
+
+  .current-count {
+    font-size: 2.5rem;
+  }
+
+  .tap-button {
+    width: 110px;
+    height: 110px;
   }
 }

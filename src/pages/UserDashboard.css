@@ -6,16 +6,15 @@
 .dashboard-page {
   display: grid;
   grid-template-columns: 260px 1fr;
-  min-height: 100vh;
+  height: 100vh;
   padding-top: 80px;
   background: var(--bg-gradient);
+  overflow: hidden;
 }
 
 /* ---- Sidebar ---- */
 .dashboard-sidebar {
-  position: sticky;
-  top: 80px;
-  height: calc(100vh - 80px);
+  height: 100%;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -125,6 +124,7 @@
 
 /* ---- Main Content ---- */
 .dashboard-main {
+  height: 100%;
   padding: 2.5rem 3rem;
   overflow-y: auto;
 }
@@ -297,41 +297,100 @@
 /* ---- Admin Form Cards ---- */
 .admin-form-card {
   padding: 2.5rem;
-  max-width: 800px;
+  max-width: 850px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
 .admin-form-card h3 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   margin-bottom: 2rem;
+  color: var(--primary);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .admin-form-card .form-group {
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.8rem;
 }
 
 .admin-form-card .form-group label {
   display: block;
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-weight: 700;
+  font-size: 0.85rem;
   color: var(--text-secondary);
-  margin-bottom: 8px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
-.admin-form-card .form-group input,
-.admin-form-card .form-group select,
-.admin-form-card .form-group textarea {
+.admin-form-card input,
+.admin-form-card select,
+.admin-form-card textarea {
   width: 100%;
-  padding: 12px 15px;
-  border: 1px solid var(--glass-border);
-  border-radius: 10px;
+  padding: 14px 18px;
+  background: #fdfdfd;
+  border: 2px solid #f0f0f0;
+  border-radius: 12px;
   font-size: 1rem;
   font-family: inherit;
+  color: var(--text-primary);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+}
+
+.admin-form-card input:hover,
+.admin-form-card select:hover,
+.admin-form-card textarea:hover {
+  border-color: #e0e0e0;
+  background: white;
+}
+
+.admin-form-card input:focus,
+.admin-form-card select:focus,
+.admin-form-card textarea:focus {
+  border-color: var(--primary);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(255, 153, 51, 0.1);
+}
+
+.admin-form-card input::placeholder,
+.admin-form-card textarea::placeholder {
+  color: #bbb;
+  font-weight: 400;
 }
 
 .admin-form-card .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  gap: 25px;
+}
+
+.admin-form-card textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.admin-form-card .btn-primary {
+  padding: 14px 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 15px rgba(255, 153, 51, 0.2);
+}
+
+/* Specific styling for Seva and Announcement lists in Admin */
+.admin-sevas, .admin-announcements {
+  margin-top: 2rem;
+}
+
+.admin-timings input {
+  font-weight: 600;
+  color: var(--primary);
 }
 
 /* ---- Profile Card ---- */
@@ -381,11 +440,15 @@
 @media (max-width: 992px) {
   .dashboard-page {
     grid-template-columns: 1fr;
+    height: auto;
+    overflow: visible;
   }
 
   .dashboard-sidebar {
     position: sticky;
     top: 70px;
+    left: 0;
+    width: 100%;
     height: auto;
     z-index: 99;
     padding: 0.75rem 1rem;
@@ -421,6 +484,7 @@
 
   .dashboard-main {
     padding: 1.5rem 1rem;
+    height: auto;
   }
 
   .dash-title {
@@ -437,6 +501,261 @@
   }
 
   .overview-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================
+   PANCHANGAM SECTION
+   ========================================= */
+
+.panchangam-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 1rem;
+}
+
+.panchangam-field {
+  padding: 1.5rem 2rem !important;
+  max-width: none !important;
+  border-left: 3px solid var(--primary) !important;
+}
+
+.panchangam-field label {
+  font-size: 1rem !important;
+  font-weight: 700 !important;
+  color: var(--text-primary) !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+  margin-bottom: 4px !important;
+}
+
+.panchangam-field input {
+  font-weight: 600 !important;
+  color: var(--primary) !important;
+}
+
+/* =========================================
+   LIVE ENERGY SECTION
+   ========================================= */
+
+.energy-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 2rem;
+}
+
+.energy-stat-card {
+  padding: 2rem;
+  text-align: center;
+  border-top: 4px solid var(--primary);
+  transition: transform 0.3s ease;
+}
+
+.energy-stat-card:hover {
+  transform: translateY(-4px);
+}
+
+.energy-icon {
+  font-size: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.energy-value {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--primary);
+  font-family: 'Outfit', sans-serif;
+  margin-bottom: 0.3rem;
+}
+
+.energy-label {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.energy-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+/* =========================================
+   UPCOMING EVENTS TIMELINE
+   ========================================= */
+
+.upcoming-events-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 2rem;
+}
+
+.timeline-event {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 1.5rem 2rem;
+  border-left: 4px solid var(--primary);
+  transition: transform 0.2s ease;
+}
+
+.timeline-event:hover {
+  transform: translateX(4px);
+}
+
+.timeline-date-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--saffron-gradient);
+  color: white;
+  border-radius: 14px;
+  min-width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  padding: 8px;
+}
+
+.tl-day {
+  font-size: 1.6rem;
+  font-weight: 800;
+  line-height: 1;
+  font-family: 'Outfit', sans-serif;
+}
+
+.tl-month {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.timeline-body {
+  flex: 1;
+}
+
+.timeline-body h4 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+
+.timeline-body p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.timeline-actions {
+  flex-shrink: 0;
+}
+
+/* Responsive for new sections */
+@media (max-width: 992px) {
+  .energy-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .panchangam-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-event {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+/* =========================================
+   AVAILABLE SEVAS SECTION
+   ========================================= */
+
+.available-sevas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-bottom: 2rem;
+}
+
+.available-seva-card {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-top: 4px solid var(--primary);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.available-seva-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(255, 153, 51, 0.15);
+}
+
+.as-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.as-icon {
+  font-size: 2.8rem;
+}
+
+.as-price {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  font-family: 'Outfit', sans-serif;
+}
+
+.as-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.as-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
+  flex-grow: 1;
+}
+
+.as-benefits {
+  background: rgba(255, 153, 51, 0.06);
+  border-radius: 10px;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  border-left: 3px solid var(--primary);
+}
+
+.as-benefits-label {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.as-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--glass-border);
+  padding-top: 14px;
+  margin-top: 4px;
+}
+
+@media (max-width: 992px) {
+  .available-sevas-grid {
     grid-template-columns: 1fr;
   }
 }
