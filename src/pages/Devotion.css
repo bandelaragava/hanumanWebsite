@@ -1,5 +1,6 @@
 .devotion-section {
   background: transparent;
+  margin-top: 5rem;
 }
 
 .devotion-tabs {
@@ -39,9 +40,10 @@
 }
 
 .video-container {
-  padding: 2rem;
+  padding: -2rem;
   display: flex;
   flex-direction: column;
+  align-self: start;
 }
 
 .video-wrapper {
@@ -126,9 +128,12 @@
 .audio-player-placeholder {
   margin-top: 2rem;
   padding: 1.5rem;
-  background: white;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 240, 220, 0.75) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 153, 51, 0.22);
+  box-shadow: 0 6px 20px rgba(255, 120, 30, 0.10);
 }
 
 .audio-player-placeholder span {
@@ -218,5 +223,36 @@
     width: 100%;
     order: 3;
     margin-top: 10px;
+  }
+}
+
+.devotion-info-below {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.devotion-info-below .info-card {
+  margin: 0;
+  height: 100%;
+}
+
+.devotion-info-below .info-card h4 {
+  margin-bottom: 0.8rem;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.devotion-info-below .info-card p {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .devotion-info-below {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }

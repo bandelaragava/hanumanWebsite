@@ -94,7 +94,7 @@
   padding: 0.8rem 1rem;
   border: 1px solid var(--glass-border);
   border-radius: 8px;
-  background: white;
+  background: rgba(255, 255, 255, 0.82);
   font-family: inherit;
   font-size: 1rem;
 }

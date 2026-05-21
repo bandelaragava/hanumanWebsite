@@ -244,7 +244,7 @@
   border: 1px solid var(--glass-border);
   border-radius: 10px;
   font-size: 1rem;
-  background: white;
+  background: rgba(255, 255, 255, 0.82);
   cursor: pointer;
   outline: none;
 }
@@ -260,7 +260,9 @@
   padding: 15px;
   border-radius: 10px;
   border: 1px solid var(--glass-border);
-  background: white;
+  background: linear-gradient(135deg, rgba(255,255,255,0.88) 0%, rgba(255,240,220,0.76) 100%);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   cursor: pointer;
   display: flex;
   flex-direction: column;

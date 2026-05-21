@@ -1,13 +1,13 @@
 /* Sections that are not the Hero should have top padding for the fixed navbar */
 section:not(.hero-section) {
-  padding-top: 80px;
-  padding-bottom: 40px;
+  padding-top: 60px;
+  padding-bottom: 20px;
 }
 
 @media (max-width: 992px) {
   section:not(.hero-section) {
-    padding-top: 60px;
-    padding-bottom: 30px;
+    padding-top: 50px;
+    padding-bottom: 20px;
   }
 }
 
@@ -64,7 +64,8 @@ section:not(.hero-section) {
   border-top: 1px solid rgba(0, 0, 0, 0.06);
   padding-top: 20px;
   margin-top: 30px;
-  padding-right: 160px; /* Spacing to prevent overlap with the floating AI Guide button */
+  padding-right: 160px;
+  /* Spacing to prevent overlap with the floating AI Guide button */
 }
 
 .footer-bottom p {
@@ -141,5 +142,7 @@ section:not(.hero-section) {
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }

@@ -108,6 +108,9 @@ export const DataProvider = ({ children }) => {
     { id: 'ds5', time: '06:30 PM - 08:30 PM', totalCapacity: 100, bookedCount: 100, isActive: true,  isFull: true  },
   ]);
 
+  // --- LIVE VIDEO URL ---
+  const [liveVideoUrl, setLiveVideoUrl] = useState('https://www.youtube.com/embed/TSFV_N-ijkA');
+
   // --- CART ---
   const [cart, setCart] = useState([]);
 
@@ -127,6 +130,9 @@ export const DataProvider = ({ children }) => {
 
     const savedSlots = localStorage.getItem('temple_darshan_slots');
     if (savedSlots) setDarshanSlots(JSON.parse(savedSlots));
+
+    const savedVideoUrl = localStorage.getItem('temple_live_video_url');
+    if (savedVideoUrl) setLiveVideoUrl(savedVideoUrl);
   }, []);
 
   useEffect(() => {
@@ -148,6 +154,12 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('temple_darshan_slots', JSON.stringify(darshanSlots));
   }, [darshanSlots]);
+
+  useEffect(() => {
+    if (liveVideoUrl) {
+      localStorage.setItem('temple_live_video_url', liveVideoUrl);
+    }
+  }, [liveVideoUrl]);
 
   const addToCart = (product) => {
     const existingItem = cart.find((item) => item.id === product.id);
@@ -418,6 +430,7 @@ export const DataProvider = ({ children }) => {
     japaMantras, setJapaMantras,
     cart, addToCart, removeFromCart, updateCartQuantity, clearCart,
     darshanSlots, setDarshanSlots,
+    liveVideoUrl, setLiveVideoUrl,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

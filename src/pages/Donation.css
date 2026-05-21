@@ -43,7 +43,11 @@
 
 .donation-card {
   padding: 40px;
-  background: white;
+  background: linear-gradient(135deg, rgba(255,255,255,0.90) 0%, rgba(255,242,225,0.82) 100%);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 153, 51, 0.22);
+  box-shadow: 0 10px 32px rgba(255, 120, 30, 0.12);
   border-radius: 20px;
 }
 

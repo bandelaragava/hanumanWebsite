@@ -1,6 +1,6 @@
 import React from 'react';
 import './About.css';
-import legendImg from '../assets/hanuman_legend.png';
+import legendImg from '../assets/hanumanMeditationimg.jpeg';
 import babyHanumanImg from '../assets/BabyHanumanLeapingSun.png';
 import sanjeevaniImg from '../assets/HanumanCarryingSanjeevaniMountain.png';
 import ramaSitaImg from '../assets/LordHanumanwithLordRamaSit.png';

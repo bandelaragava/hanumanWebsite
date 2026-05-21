@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import heroImg from '../assets/hero.jpg';
-import legendImg from '../assets/hanuman_legend.png';
+import legendImg from '../assets/main_deity.png';
 import { useData } from '../context/DataContext';
 import { usePanchangam } from '../utils/usePanchangam';
 import './Home.css';

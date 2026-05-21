@@ -3,13 +3,13 @@
 }
 
 .welcome-section {
-  padding: 5rem 2rem;
+  padding: -3rem 2rem;
   text-align: center;
 }
 
 .welcome-content .section-title {
   font-size: clamp(2rem, 5vw, 3rem);
-  margin-top: 2rem;
+  margin-top: -2rem;
   margin-bottom: 1.5rem;
 }
 
@@ -27,12 +27,14 @@
 }
 
 .feature-card {
-  background: white;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 243, 230, 0.80) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 2.5rem;
   border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 28px rgba(255, 120, 30, 0.10);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 153, 51, 0.22);
   text-align: center;
 }
 
@@ -73,7 +75,7 @@
 
 /* Timings Section */
 .timings-section {
-  background: #fff9f2;
+  background: transparent;
   padding: 4rem 0;
   margin-top: 0;
 }
@@ -87,10 +89,13 @@
 
 .timing-list {
   margin-top: 2rem;
-  background: white;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 240, 220, 0.75) 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   padding: 2rem;
   border-radius: 20px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(255, 153, 51, 0.22);
+  box-shadow: 0 8px 28px rgba(255, 120, 30, 0.10);
 }
 
 .timing-item {
@@ -135,8 +140,8 @@
 }
 
 .panchang-date-badge {
-  background: linear-gradient(135deg, rgba(255,153,51,0.15), rgba(255,153,51,0.05));
-  border: 1px solid rgba(255,153,51,0.35);
+  background: linear-gradient(135deg, rgba(255, 153, 51, 0.15), rgba(255, 153, 51, 0.05));
+  border: 1px solid rgba(255, 153, 51, 0.35);
   color: var(--primary);
   font-size: 0.78rem;
   font-weight: 700;
@@ -157,16 +162,23 @@
 .panchang-skeleton {
   height: 20px;
   border-radius: 8px;
-  background: linear-gradient(90deg, rgba(255,153,51,0.1) 25%, rgba(255,153,51,0.22) 50%, rgba(255,153,51,0.1) 75%);
+  background: linear-gradient(90deg, rgba(255, 153, 51, 0.1) 25%, rgba(255, 153, 51, 0.22) 50%, rgba(255, 153, 51, 0.1) 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 
-.panchang-skeleton.short { width: 55%; }
+.panchang-skeleton.short {
+  width: 55%;
+}
 
 @keyframes shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 .panchang-loading-text {
@@ -197,14 +209,15 @@
   color: #c62828;
   transition: all 0.2s;
 }
+
 .panchang-retry-btn:hover {
-  background: rgba(198,40,40,0.08);
+  background: rgba(198, 40, 40, 0.08);
 }
 
 /* ── Festival banner ───────────────────────────────────────────── */
 .panchang-festival-banner {
-  background: linear-gradient(135deg, rgba(255,153,51,0.15), rgba(255,87,34,0.08));
-  border: 1px solid rgba(255,153,51,0.4);
+  background: linear-gradient(135deg, rgba(255, 153, 51, 0.15), rgba(255, 87, 34, 0.08));
+  border: 1px solid rgba(255, 153, 51, 0.4);
   border-radius: 10px;
   padding: 10px 16px;
   font-size: 0.9rem;
@@ -231,7 +244,7 @@
 
 .p-item {
   padding: 8px 0;
-  border-bottom: 1px solid rgba(255,153,51,0.1);
+  border-bottom: 1px solid rgba(255, 153, 51, 0.1);
 }
 
 .p-item span {
@@ -291,20 +304,20 @@
 }
 
 .muhurta-item.good {
-  background: rgba(46,125,50,0.1);
-  border: 1px solid rgba(46,125,50,0.25);
+  background: rgba(46, 125, 50, 0.1);
+  border: 1px solid rgba(46, 125, 50, 0.25);
   color: #1b5e20;
 }
 
 .muhurta-item.bad {
-  background: rgba(198,40,40,0.08);
-  border: 1px solid rgba(198,40,40,0.2);
+  background: rgba(198, 40, 40, 0.08);
+  border: 1px solid rgba(198, 40, 40, 0.2);
   color: #b71c1c;
 }
 
 /* ── Special note ──────────────────────────────────────────────── */
 .panchang-note {
-  background: rgba(255,153,51,0.08);
+  background: rgba(255, 153, 51, 0.08);
   border-left: 3px solid var(--primary);
   border-radius: 0 8px 8px 0;
   padding: 10px 14px;
@@ -470,6 +483,7 @@
     justify-items: center;
     text-align: center;
   }
+
   .brief-item {
     border-left: none;
     border-top: 3px solid var(--primary);

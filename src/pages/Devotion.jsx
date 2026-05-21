@@ -83,17 +83,16 @@ const Devotion = () => {
             <div className="video-info">
               <p>Experience the divine energy through visual devotion and collective chanting.</p>
             </div>
-          </div>
-        </div>
-
-        <div className="devotion-info grid">
-          <div className="info-card glass-card">
-            <h4>💪 Why Worship Hanuman?</h4>
-            <p>Worshipping Hanuman provides health, courage, and success. He is the destroyer of obstacles and the symbol of supreme devotion.</p>
-          </div>
-          <div className="info-card glass-card">
-            <h4>⏰ Best Days to Visit</h4>
-            <p><strong>Tuesday & Saturday</strong> are most auspicious for Hanuman puja. Devotees often fast and recite Chalisa on these days.</p>
+            <div className="devotion-info-below">
+              <div className="info-card glass-card">
+                <h4>💪 Why Worship Hanuman?</h4>
+                <p>Worshipping Hanuman provides health, courage, and success. He is the destroyer of obstacles and the symbol of supreme devotion.</p>
+              </div>
+              <div className="info-card glass-card">
+                <h4>⏰ Best Days to Visit</h4>
+                <p><strong>Tuesday &amp; Saturday</strong> are most auspicious for Hanuman puja. Devotees often fast and recite Chalisa on these days.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

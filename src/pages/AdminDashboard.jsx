@@ -22,6 +22,7 @@ const AdminDashboard = () => {
     devotionalContent, setDevotionalContent,
     japaMantras, setJapaMantras,
     darshanSlots, setDarshanSlots,
+    liveVideoUrl, setLiveVideoUrl,
   } = useData();
   
   const navigate = useNavigate();
@@ -872,6 +873,20 @@ const AdminDashboard = () => {
               <div className="admin-form-card glass-card">
                 <label>🕐 Last Updated</label>
                 <input type="text" value={energyData.lastUpdated} onChange={(e) => setEnergyData({...energyData, lastUpdated: e.target.value})} style={{width:'100%', padding:'12px', borderRadius:'10px', border:'1px solid var(--glass-border)', fontSize:'1rem', marginTop:'8px'}} placeholder="e.g. 12:00 PM" />
+              </div>
+
+              <div className="admin-form-card glass-card" style={{gridColumn: '1 / -1'}}>
+                <label>📺 Live Video Stream URL</label>
+                <input 
+                  type="text" 
+                  value={liveVideoUrl || ''} 
+                  onChange={(e) => setLiveVideoUrl(e.target.value)} 
+                  style={{width:'100%', padding:'12px', borderRadius:'10px', border:'1px solid var(--glass-border)', fontSize:'1rem', marginTop:'8px'}} 
+                  placeholder="e.g. https://www.youtube.com/watch?v=xxx or direct video URL" 
+                />
+                <span style={{fontSize:'0.85rem', opacity:0.6, marginTop:'6px', display:'block'}}>
+                  Supports standard YouTube watch links, shorts, vimeo embed links, or direct MP4 stream URLs.
+                </span>
               </div>
             </div>
 

@@ -6,16 +6,16 @@
   --secondary: #FFD700;
   --accent: #FF4500;
   --bg-dark: #ffffff;
-  --bg-gradient: linear-gradient(180deg, #ffffff 0%, #fffbf5 40%, #f7f9fc 100%);
-  --surface: #f8f8f8;
-  --surface-light: #eeeeee;
-  --text-primary: #1a1a1a;
-  --text-secondary: #555555;
-  --card-gradient: linear-gradient(135deg, #FFF5E6 0%, #FFEDD5 50%, #FFD6A5 100%);
+  --bg-gradient: linear-gradient(135deg, #FFFFFF 0%, #FFF5EC 25%, #FFE3CC 52%, #FFCA9E 82%, #FFAE73 100%);
+  --surface: #fdfaf6;
+  --surface-light: #f5ece2;
+  --text-primary: #2b1f15;
+  --text-secondary: #5c4e43;
+  --card-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 250, 245, 0.8) 100%);
   --gold-gradient: linear-gradient(135deg, #FF8C00 0%, #E67E22 100%);
   --saffron-gradient: linear-gradient(135deg, #FF9933 0%, #FF4500 100%);
-  --glass: rgba(255, 153, 51, 0.05);
-  --glass-border: rgba(255, 153, 51, 0.2);
+  --glass: rgba(255, 153, 51, 0.04);
+  --glass-border: rgba(255, 153, 51, 0.25);
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -41,12 +41,19 @@ body {
   width: 100%;
 }
 
-img, video, iframe {
+img,
+video,
+iframe {
   max-width: 100%;
   height: auto;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Outfit', sans-serif;
   font-weight: 700;
   background: var(--saffron-gradient);
@@ -96,7 +103,7 @@ button {
   box-shadow: 0 10px 30px rgba(255, 153, 51, 0.1);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
-  padding: 24px;
+  padding: 20px;
 }
 
 .btn-primary {
@@ -146,8 +153,15 @@ button {
 
 /* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .animate-fade-in {
