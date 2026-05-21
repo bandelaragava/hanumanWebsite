@@ -57,6 +57,17 @@ const Footer = () => {
       </div>
       <div className="container footer-bottom">
         <p>&copy; 2026 Hanuman Temple Digital Presence. All Rights Reserved.</p>
+        <p className="footer-dev-credit">
+          Developed by{' '}
+          <a
+            href="https://futureinvo.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-dev-link"
+          >
+            Future Invo Solutions
+          </a>
+        </p>
         <div className="legal-links">
           <span>Privacy Policy</span> | <span>Terms of Use</span> | <span>80G Info</span>
         </div>

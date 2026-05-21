@@ -99,6 +99,15 @@ export const DataProvider = ({ children }) => {
     'Sankat Mochan Hanumate Namaha'
   ]);
 
+  // --- DARSHAN SLOTS ---
+  const [darshanSlots, setDarshanSlots] = useState([
+    { id: 'ds1', time: '06:00 AM - 08:00 AM', totalCapacity: 150, bookedCount: 30,  isActive: true,  isFull: false },
+    { id: 'ds2', time: '08:00 AM - 10:00 AM', totalCapacity: 100, bookedCount: 80,  isActive: true,  isFull: false },
+    { id: 'ds3', time: '10:00 AM - 12:00 PM', totalCapacity: 120, bookedCount: 40,  isActive: true,  isFull: false },
+    { id: 'ds4', time: '04:30 PM - 06:30 PM', totalCapacity: 130, bookedCount: 20,  isActive: true,  isFull: false },
+    { id: 'ds5', time: '06:30 PM - 08:30 PM', totalCapacity: 100, bookedCount: 100, isActive: true,  isFull: true  },
+  ]);
+
   // --- CART ---
   const [cart, setCart] = useState([]);
 
@@ -115,6 +124,9 @@ export const DataProvider = ({ children }) => {
 
     const savedCart = localStorage.getItem('temple_cart');
     if (savedCart) setCart(JSON.parse(savedCart));
+
+    const savedSlots = localStorage.getItem('temple_darshan_slots');
+    if (savedSlots) setDarshanSlots(JSON.parse(savedSlots));
   }, []);
 
   useEffect(() => {
@@ -132,6 +144,10 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('temple_cart', JSON.stringify(cart));
   }, [cart]);
+
+  useEffect(() => {
+    localStorage.setItem('temple_darshan_slots', JSON.stringify(darshanSlots));
+  }, [darshanSlots]);
 
   const addToCart = (product) => {
     const existingItem = cart.find((item) => item.id === product.id);
@@ -400,7 +416,8 @@ export const DataProvider = ({ children }) => {
     donations, setDonations,
     devotionalContent, setDevotionalContent,
     japaMantras, setJapaMantras,
-    cart, addToCart, removeFromCart, updateCartQuantity, clearCart
+    cart, addToCart, removeFromCart, updateCartQuantity, clearCart,
+    darshanSlots, setDarshanSlots,
   };
 
   return <DataContext.Provider value={value}>{children}</DataContext.Provider>;

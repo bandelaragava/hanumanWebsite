@@ -22,6 +22,12 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const isDashboard = location.pathname.includes('/dashboard') || location.pathname.includes('/admin');
+
+  if (isDashboard) {
+    return null;
+  }
+
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
@@ -47,8 +53,32 @@ const Navbar = () => {
     <nav className={`navbar ${isScrolled ? 'scrolled' : ''} ${isTransparent ? 'transparent' : ''} ${isMenuOpen ? 'menu-open' : ''}`}>
       <div className="container nav-container">
         <Link to="/" className="logo" onClick={() => setIsMenuOpen(false)}>
-          <span className="logo-icon">🕉️</span>
-          <span className="logo-text">Hanuman<span>Temple</span></span>
+          <div className="logo-emblem">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className="logo-svg">
+              {/* Outer decorative ring */}
+              <circle cx="24" cy="24" r="22" stroke="url(#logoGrad)" strokeWidth="1.5" strokeDasharray="4 2" opacity="0.6"/>
+              {/* Main filled circle */}
+              <circle cx="24" cy="24" r="18" fill="url(#logoGrad)" opacity="0.12"/>
+              <circle cx="24" cy="24" r="18" stroke="url(#logoGrad)" strokeWidth="1.8"/>
+              {/* Om symbol path */}
+              <text x="24" y="29" textAnchor="middle" fontSize="16" fontFamily="serif" fill="url(#logoGrad)" fontWeight="bold">ॐ</text>
+              {/* Top arc accent */}
+              <path d="M12 10 Q24 4 36 10" stroke="url(#logoGrad)" strokeWidth="1.2" fill="none" strokeLinecap="round" opacity="0.7"/>
+              {/* Bottom arc accent */}
+              <path d="M12 38 Q24 44 36 38" stroke="url(#logoGrad)" strokeWidth="1.2" fill="none" strokeLinecap="round" opacity="0.7"/>
+              <defs>
+                <linearGradient id="logoGrad" x1="0" y1="0" x2="48" y2="48" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stopColor="#ff9933"/>
+                  <stop offset="50%" stopColor="#ff6600"/>
+                  <stop offset="100%" stopColor="#ffcc44"/>
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <div className="logo-wordmark">
+            <span className="logo-word-main">HANUMAN</span>
+            <span className="logo-word-sub">TEMPLE</span>
+          </div>
         </Link>
 
         <ul className={`nav-links ${isMenuOpen ? 'active' : ''}`}>

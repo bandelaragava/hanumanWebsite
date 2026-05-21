@@ -4,7 +4,7 @@ import { useData } from '../context/DataContext';
 import toast from 'react-hot-toast';
 
 const SevaBooking = () => {
-  const { sevas, bookings, setBookings } = useData();
+  const { sevas, bookings, setBookings, darshanSlots, setDarshanSlots } = useData();
   const [activeSection, setActiveSection] = useState('SEVA'); // SEVA, DARSHAN, ACCOMMODATION
   const [step, setStep] = useState('LIST'); // LIST, FORM, SUCCESS
   
@@ -40,14 +40,15 @@ const SevaBooking = () => {
   const [status, setStatus] = useState(null); // 'success' or 'error'
   const [generatedBookingId, setGeneratedBookingId] = useState('');
 
-  // Mock Darshan Slots
-  const darshanSlots = [
-    { id: 'ds1', time: '06:00 AM - 08:00 AM', status: 'Available', label: '120 slots left' },
-    { id: 'ds2', time: '08:00 AM - 10:00 AM', status: 'Limited', label: '20 slots left' },
-    { id: 'ds3', time: '10:00 AM - 12:00 PM', status: 'Available', label: '80 slots left' },
-    { id: 'ds4', time: '04:30 PM - 06:30 PM', status: 'Available', label: '110 slots left' },
-    { id: 'ds5', time: '06:30 PM - 08:30 PM', status: 'Full', label: 'Sold Out' }
-  ];
+  // Darshan slots come from DataContext (managed by admin)
+  // Only show active slots; derive remaining count and full status
+  const activeDarshanSlots = darshanSlots
+    .filter(s => s.isActive)
+    .map(s => ({
+      ...s,
+      remaining: s.totalCapacity - s.bookedCount,
+      effectivelyFull: s.isFull,  // Only admin-controlled — never auto-triggers
+    }));
 
   // Mock Room Accommodations
   const roomTypes = [
@@ -161,6 +162,15 @@ const SevaBooking = () => {
         };
         
         setBookings([newBooking, ...bookings]);
+
+        // Increment bookedCount for the chosen darshan slot
+        if (activeSection === 'DARSHAN' && selectedSlot) {
+          setDarshanSlots(prev => prev.map(s =>
+            s.time === selectedSlot
+              ? { ...s, bookedCount: s.bookedCount + ticketsCount }
+              : s
+          ));
+        }
         setStep('SUCCESS');
         setStatus('success');
         toast.success('Sacred booking confirmed successfully!');
@@ -316,24 +326,45 @@ const SevaBooking = () => {
                     </div>
                   </div>
 
-                  <div className="form-group">
+                   <div className="form-group">
                     <label>Select Time Slot</label>
-                    <div className="slots-grid">
-                      {darshanSlots.map((slot) => (
-                        <button
-                          key={slot.id}
-                          type="button"
-                          className={`slot-card ${selectedSlot === slot.time ? 'selected' : ''} ${slot.status === 'Full' ? 'full' : ''}`}
-                          disabled={slot.status === 'Full'}
-                          onClick={() => setSelectedSlot(slot.time)}
-                        >
-                          <span className="slot-time">{slot.time}</span>
-                          <span className={`slot-status ${slot.status.toLowerCase()}`}>
-                            {slot.label}
-                          </span>
-                        </button>
-                      ))}
-                    </div>
+                    {activeDarshanSlots.length === 0 ? (
+                      <div style={{padding:'1.5rem', textAlign:'center', opacity:0.6, border:'1px dashed var(--glass-border)', borderRadius:'12px'}}>
+                        🕉️ No time slots are currently available. Please check back later.
+                      </div>
+                    ) : (
+                      <div className="slots-grid">
+                        {activeDarshanSlots.map((slot) => {
+                          const isSelected = selectedSlot === slot.time;
+                          const isFull = slot.effectivelyFull;
+                          const isLimited = !isFull && slot.remaining <= 20;
+                          return (
+                            <button
+                              key={slot.id}
+                              type="button"
+                              className={`slot-card ${
+                                isSelected ? 'selected' : ''
+                              } ${
+                                isFull ? 'full' : isLimited ? 'limited' : ''
+                              }`}
+                              disabled={isFull}
+                              onClick={() => setSelectedSlot(slot.time)}
+                            >
+                              <span className="slot-time">{slot.time}</span>
+                              <span className={`slot-status ${
+                                isFull ? 'full' : isLimited ? 'limited' : 'available'
+                              }`}>
+                                {isFull
+                                  ? '🚫 Quota Full'
+                                  : isLimited
+                                  ? `⚠️ ${slot.remaining} left`
+                                  : `✅ ${slot.remaining} tickets left`}
+                              </span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
 
                   <div className="darshan-submit-row">

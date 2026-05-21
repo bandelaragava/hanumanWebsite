@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
-import heroImg from '../assets/hero.png';
+import heroImg from '../assets/hero.jpg';
 import legendImg from '../assets/hanuman_legend.png';
 import { useData } from '../context/DataContext';
+import { usePanchangam } from '../utils/usePanchangam';
 import './Home.css';
 
 const Home = () => {
   const { timings, events } = useData();
   const [selectedProblem, setSelectedProblem] = useState(null);
+  const { data: panchang, loading: panchangLoading, error: panchangError, refresh: refreshPanchang } = usePanchangam();
 
   const problems = [
     { id: 'health', icon: '🙏', label: 'Health', mantra: 'Om Ham Hanumate Namaha', pooja: 'Tailabhishekam', day: 'Tuesday' },
@@ -148,17 +150,100 @@ const Home = () => {
               <Link to="/live" className="btn-primary" style={{marginTop: '2rem', display: 'inline-block'}}>Watch Live Aarti</Link>
             </div>
             <div className="panchangam-card glass-card">
-              <h3>Today's Panchangam</h3>
-              <div className="panchang-details">
-                <div className="p-item"><span>Tithi:</span> <strong>Ekadashi</strong></div>
-                <div className="p-item"><span>Nakshatram:</span> <strong>Rohini</strong></div>
-                <div className="p-item"><span>Yogam:</span> <strong>Sadhya</strong></div>
-                <div className="p-item"><span>Karanam:</span> <strong>Bava</strong></div>
+              <div className="panchang-header">
+                <h3>Today's Panchangam</h3>
+                {!panchangLoading && panchang && (
+                  <span className="panchang-date-badge">{panchang.date}</span>
+                )}
               </div>
-              <div className="sun-timings">
-                <div className="sun-item">🌅 Sunrise: 6:05 AM</div>
-                <div className="sun-item">🌇 Sunset: 6:32 PM</div>
-              </div>
+
+              {panchangLoading && (
+                <div className="panchang-loading">
+                  <div className="panchang-skeleton"></div>
+                  <div className="panchang-skeleton short"></div>
+                  <div className="panchang-skeleton"></div>
+                  <div className="panchang-skeleton short"></div>
+                  <p className="panchang-loading-text">🕉️ Computing today's almanac…</p>
+                </div>
+              )}
+
+              {panchangError && (
+                <div className="panchang-error">
+                  <p>⚠️ {panchangError}</p>
+                  <button onClick={refreshPanchang} className="panchang-retry-btn">🔄 Retry</button>
+                </div>
+              )}
+
+              {!panchangLoading && !panchangError && panchang && (
+                <>
+                  {panchang.festivals && (
+                    <div className="panchang-festival-banner">
+                      🎉 {panchang.festivals}
+                    </div>
+                  )}
+
+                  <div className="panchang-details">
+                    <div className="p-item">
+                      <span>🌙 Tithi</span>
+                      <strong>{panchang.tithi}</strong>
+                    </div>
+                    <div className="p-item">
+                      <span>⭐ Nakshatra</span>
+                      <strong>{panchang.nakshatra}</strong>
+                    </div>
+                    <div className="p-item">
+                      <span>🧘 Yoga</span>
+                      <strong>{panchang.yoga}</strong>
+                    </div>
+                    <div className="p-item">
+                      <span>🔑 Karana</span>
+                      <strong>{panchang.karana}</strong>
+                    </div>
+                    <div className="p-item">
+                      <span>📅 Vara</span>
+                      <strong>{panchang.vara}</strong>
+                    </div>
+                    <div className="p-item">
+                      <span>🌕 Paksha</span>
+                      <strong>{panchang.paksha}</strong>
+                    </div>
+                    <div className="p-item">
+                      <span>📆 Masa</span>
+                      <strong>{panchang.masa}</strong>
+                    </div>
+                    <div className="p-item">
+                      <span>🌙 Moon Sign</span>
+                      <strong>{panchang.moonSign}</strong>
+                    </div>
+                  </div>
+
+                  <div className="sun-timings">
+                    <div className="sun-item">🌅 Sunrise: {panchang.sunrise}</div>
+                    <div className="sun-item">🌇 Sunset: {panchang.sunset}</div>
+                  </div>
+
+                  <div className="panchang-muhurta">
+                    <div className="muhurta-item good">
+                      <span>✅ Abhijit Muhurta</span>
+                      <strong>{panchang.abhijitMuhurta}</strong>
+                    </div>
+                    <div className="muhurta-item bad">
+                      <span>⚠️ Rahu Kala</span>
+                      <strong>{panchang.rahuKala}</strong>
+                    </div>
+                    <div className="muhurta-item bad">
+                      <span>🚫 Yamaghanda</span>
+                      <strong>{panchang.yamaghanda}</strong>
+                    </div>
+                  </div>
+
+                  {panchang.specialNote && (
+                    <div className="panchang-note">
+                      📝 {panchang.specialNote}
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>

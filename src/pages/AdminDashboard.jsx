@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useData } from '../context/DataContext';
+import { usePanchangam } from '../utils/usePanchangam';
 import './UserDashboard.css';
 import toast from 'react-hot-toast';
 
 const AdminDashboard = () => {
   const { user, logout } = useAuth();
+  const [activeTab, setActiveTab] = useState('overview');
+  const [isNavOpen, setIsNavOpen] = useState(false);
   const { 
     sevas, addSeva, deleteSeva, updateSeva,
     products, setProducts,
@@ -17,11 +20,11 @@ const AdminDashboard = () => {
     bookings, approveBooking, rejectBooking,
     donations,
     devotionalContent, setDevotionalContent,
-    japaMantras, setJapaMantras
+    japaMantras, setJapaMantras,
+    darshanSlots, setDarshanSlots,
   } = useData();
   
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('overview');
 
   const handleLogout = () => {
     logout();
@@ -35,6 +38,7 @@ const AdminDashboard = () => {
     { id: 'sevas', label: '📿 Manage Sevas' },
     { id: 'store', label: '🛒 Temple Store' },
     { id: 'timings', label: '⏰ Temple Timings' },
+    { id: 'darshan-slots', label: '🕉️ Darshan Slots' },
     { id: 'panchangam', label: '📜 Panchangam' },
     { id: 'energy', label: '🔱 Live Energy' },
     { id: 'upcoming', label: '🗓️ Upcoming Events' },
@@ -46,22 +50,70 @@ const AdminDashboard = () => {
     { id: 'japa', label: '📿 Japa Mantras' },
   ];
 
-  // --- Panchangam state ---
+  // --- Panchangam: live data hook + optional admin overrides ---
   const today = new Date();
+  const { data: livePanchang, loading: liveLoading, error: liveError, refresh: refreshLive } = usePanchangam();
   const [panchangam, setPanchangam] = React.useState({
-    tithi: 'Ekadashi (11th)',
-    vara: 'Somawar (Monday)',
-    nakshatra: 'Rohini',
-    yoga: 'Siddha',
-    karana: 'Bava',
-    rahuKala: '7:30 AM – 9:00 AM',
-    yamaghanda: '10:30 AM – 12:00 PM',
-    abhijitMuhurta: '11:48 AM – 12:36 PM',
-    sunrise: '6:01 AM',
-    sunset: '6:43 PM',
-    moonSign: 'Vrishabha (Taurus)',
-    specialNote: 'Auspicious day for Hanuman Puja. Avoid Rahu Kala for new beginnings.'
+    tithi: '',
+    vara: '',
+    nakshatra: '',
+    yoga: '',
+    karana: '',
+    rahuKala: '',
+    yamaghanda: '',
+    abhijitMuhurta: '',
+    sunrise: '',
+    sunset: '',
+    moonSign: '',
+    paksha: '',
+    masa: '',
+    specialNote: ''
   });
+
+  // Sync admin form whenever live data loads (only if fields are empty)
+  useEffect(() => {
+    if (livePanchang && !panchangam.tithi) {
+      setPanchangam(prev => ({
+        ...prev,
+        tithi:          livePanchang.tithi          || prev.tithi,
+        vara:           livePanchang.vara           || prev.vara,
+        nakshatra:      livePanchang.nakshatra      || prev.nakshatra,
+        yoga:           livePanchang.yoga           || prev.yoga,
+        karana:         livePanchang.karana         || prev.karana,
+        rahuKala:       livePanchang.rahuKala       || prev.rahuKala,
+        yamaghanda:     livePanchang.yamaghanda     || prev.yamaghanda,
+        abhijitMuhurta: livePanchang.abhijitMuhurta || prev.abhijitMuhurta,
+        sunrise:        livePanchang.sunrise        || prev.sunrise,
+        sunset:         livePanchang.sunset         || prev.sunset,
+        moonSign:       livePanchang.moonSign       || prev.moonSign,
+        paksha:         livePanchang.paksha         || prev.paksha,
+        masa:           livePanchang.masa           || prev.masa,
+        specialNote:    livePanchang.specialNote    || prev.specialNote,
+      }));
+    }
+  }, [livePanchang]);
+
+  /** Reset form to the latest live-calculated values */
+  const syncFromLive = () => {
+    if (!livePanchang) return;
+    setPanchangam({
+      tithi:          livePanchang.tithi,
+      vara:           livePanchang.vara,
+      nakshatra:      livePanchang.nakshatra,
+      yoga:           livePanchang.yoga,
+      karana:         livePanchang.karana,
+      rahuKala:       livePanchang.rahuKala,
+      yamaghanda:     livePanchang.yamaghanda,
+      abhijitMuhurta: livePanchang.abhijitMuhurta,
+      sunrise:        livePanchang.sunrise,
+      sunset:         livePanchang.sunset,
+      moonSign:       livePanchang.moonSign,
+      paksha:         livePanchang.paksha,
+      masa:           livePanchang.masa,
+      specialNote:    livePanchang.specialNote,
+    });
+    toast.success('Synced with live astronomical data! 🕉️');
+  };
 
   // --- Live Energy state ---
   const [energyData, setEnergyData] = React.useState({
@@ -137,19 +189,46 @@ const AdminDashboard = () => {
   return (
     <div className="dashboard-page animate-fade-in">
       <aside className="dashboard-sidebar glass-card admin-sidebar">
+        {/* Brand */}
+        <div className="dashboard-brand">
+          <span className="dashboard-brand-icon">🕉️</span>
+          <span className="dashboard-brand-name">HanumanTemple</span>
+        </div>
+
+        {/* Back to Home */}
+        <Link to="/" className="dashboard-home-btn">
+          <span>←</span>
+          <span>Back to Home</span>
+        </Link>
+
+        {/* Hamburger toggle — only visible on mobile/tablet */}
+        <button
+          className={`dash-nav-toggle ${isNavOpen ? 'open' : ''}`}
+          onClick={() => setIsNavOpen(!isNavOpen)}
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        {/* User info — desktop only */}
         <div className="sidebar-user">
           <div className="user-avatar admin-avatar">🛕</div>
           <h4>{user?.name}</h4>
           <span className="user-role-badge admin-badge">Temple Admin</span>
         </div>
-        <nav className="sidebar-nav">
+
+        {/* Nav links */}
+        <nav className={`sidebar-nav ${isNavOpen ? 'nav-open' : ''}`}>
           {tabs.map((t) => (
             <button
               key={t.id}
               className={`sidebar-link ${activeTab === t.id ? 'active' : ''}`}
               onClick={() => {
                 setActiveTab(t.id);
-                setNewItem({}); // Clear form on tab switch
+                setNewItem({});
+                setIsNavOpen(false);
               }}
             >
               {t.label}
@@ -409,6 +488,175 @@ const AdminDashboard = () => {
           </div>
         )}
 
+        {activeTab === 'darshan-slots' && (
+          <div className="admin-darshan-slots">
+            <h2 className="dash-title">🕉️ Manage Darshan Slots</h2>
+            <p style={{opacity:0.7, marginBottom:'2rem'}}>
+              Configure which time slots appear on the Darshan booking page. Toggle slots on/off, mark as Quota Full, adjust capacity, or reset booked counts.
+            </p>
+
+            {/* Add New Slot */}
+            <div className="admin-form-card glass-card" style={{marginBottom:'2rem'}}>
+              <h3>➕ Add New Time Slot</h3>
+              <div className="form-row">
+                <div className="form-group">
+                  <label>Slot Time (e.g. 09:00 AM - 11:00 AM)</label>
+                  <input
+                    type="text"
+                    placeholder="HH:MM AM - HH:MM AM"
+                    value={newItem.slotTime || ''}
+                    onChange={(e) => setNewItem({...newItem, slotTime: e.target.value})}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>Total Capacity (Tickets)</label>
+                  <input
+                    type="number"
+                    min="1"
+                    placeholder="e.g. 150"
+                    value={newItem.slotCapacity || ''}
+                    onChange={(e) => setNewItem({...newItem, slotCapacity: e.target.value})}
+                  />
+                </div>
+              </div>
+              <button
+                className="btn-primary"
+                onClick={() => {
+                  if (!newItem.slotTime || !newItem.slotCapacity) return toast.error('Please fill slot time and capacity.');
+                  const cap = parseInt(newItem.slotCapacity);
+                  if (isNaN(cap) || cap < 1) return toast.error('Capacity must be a positive number.');
+                  setDarshanSlots(prev => [...prev, {
+                    id: `ds${Date.now()}`,
+                    time: newItem.slotTime.trim(),
+                    totalCapacity: cap,
+                    bookedCount: 0,
+                    isActive: true,
+                    isFull: false,
+                  }]);
+                  setNewItem({});
+                  toast.success('New Darshan slot added!');
+                }}
+              >
+                Add Slot
+              </button>
+            </div>
+
+            {/* Slots Table */}
+            <div className="data-table glass-card">
+              {darshanSlots.length === 0 ? (
+                <div style={{padding:'3rem', textAlign:'center', opacity:0.6}}>
+                  <div style={{fontSize:'2.5rem', marginBottom:'1rem'}}>🕉️</div>
+                  <p>No slots configured yet. Add a slot above.</p>
+                </div>
+              ) : (
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Time Slot</th>
+                      <th>Capacity</th>
+                      <th>Booked</th>
+                      <th>Remaining</th>
+                      <th>Visible</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {darshanSlots.map((slot, idx) => {
+                      const remaining = slot.totalCapacity - slot.bookedCount;
+                      const effectivelyFull = slot.isFull;  // Only admin-controlled
+                      return (
+                        <tr key={slot.id} style={{opacity: slot.isActive ? 1 : 0.5}}>
+                          <td><strong>{slot.time}</strong></td>
+                          <td>
+                            <input
+                              type="number"
+                              min="1"
+                              value={slot.totalCapacity}
+                              style={{width:'80px', padding:'6px', borderRadius:'8px', border:'1px solid var(--glass-border)', textAlign:'center'}}
+                              onChange={(e) => {
+                                const val = parseInt(e.target.value);
+                                if (isNaN(val) || val < 1) return;
+                                setDarshanSlots(prev => prev.map((s, i) => i === idx ? {...s, totalCapacity: val} : s));
+                              }}
+                            />
+                          </td>
+                          <td>
+                            <span style={{fontWeight:600}}>{slot.bookedCount}</span>
+                          </td>
+                          <td>
+                            <span style={{
+                              fontWeight: 700,
+                              color: remaining <= 0 ? '#c62828' : remaining <= 20 ? '#e65100' : '#2e7d32'
+                            }}>
+                              {Math.max(0, remaining)}
+                            </span>
+                          </td>
+                          <td>
+                            <button
+                              onClick={() => {
+                                setDarshanSlots(prev => prev.map((s, i) => i === idx ? {...s, isActive: !s.isActive} : s));
+                                toast.success(`Slot ${slot.isActive ? 'hidden from' : 'shown on'} booking page.`);
+                              }}
+                              style={{
+                                padding:'5px 14px', borderRadius:'20px', border:'none', cursor:'pointer',
+                                fontWeight:700, fontSize:'0.8rem',
+                                background: slot.isActive ? 'rgba(46,125,50,0.15)' : 'rgba(150,150,150,0.15)',
+                                color: slot.isActive ? '#2e7d32' : '#888'
+                              }}
+                            >
+                              {slot.isActive ? '● Visible' : '○ Hidden'}
+                            </button>
+                          </td>
+                          <td>
+                            <button
+                              onClick={() => {
+                                setDarshanSlots(prev => prev.map((s, i) => i === idx ? {...s, isFull: !s.isFull} : s));
+                                toast.success(`Quota Full ${slot.isFull ? 'removed' : 'set'} for this slot.`);
+                              }}
+                              style={{
+                                padding:'5px 14px', borderRadius:'20px', border:'none', cursor:'pointer',
+                                fontWeight:700, fontSize:'0.8rem',
+                                background: effectivelyFull ? 'rgba(198,40,40,0.12)' : 'rgba(255,153,51,0.12)',
+                                color: effectivelyFull ? '#c62828' : '#e65100'
+                              }}
+                            >
+                              {effectivelyFull ? '🚫 Quota Full' : '✅ Open'}
+                            </button>
+                          </td>
+                          <td>
+                            <div style={{display:'flex', gap:'8px', flexWrap:'wrap'}}>
+                              <button
+                                className="btn-approve"
+                                style={{fontSize:'0.78rem', padding:'5px 10px'}}
+                                onClick={() => {
+                                  setDarshanSlots(prev => prev.map((s, i) => i === idx ? {...s, bookedCount: 0, isFull: false} : s));
+                                  toast.success('Slot reset: booked count cleared.');
+                                }}
+                              >
+                                🔄 Reset
+                              </button>
+                              <button
+                                className="btn-reject"
+                                onClick={() => {
+                                  setDarshanSlots(prev => prev.filter((_, i) => i !== idx));
+                                  toast.success('Slot deleted.');
+                                }}
+                              >
+                                🗑 Delete
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              )}
+            </div>
+          </div>
+        )}
+
         {activeTab === 'events' && (
           <div className="admin-events">
             <h2 className="dash-title">🎉 Manage Events</h2>
@@ -476,29 +724,54 @@ const AdminDashboard = () => {
         {activeTab === 'panchangam' && (
           <div className="admin-panchangam">
             <h2 className="dash-title">📜 Today's Panchangam</h2>
-            <p style={{opacity:0.7, marginBottom:'2rem'}}>Manage and publish today's Hindu almanac data. Devotees see this on the home page.</p>
+            <p style={{opacity:0.7, marginBottom:'1.5rem'}}>Live astronomical data is auto-computed and shown below. You may review and override any field before publishing. Devotees see this on the home page.</p>
+
+            {/* Live data status banner */}
+            {liveLoading && (
+              <div style={{background:'rgba(255,153,51,0.1)', border:'1px solid rgba(255,153,51,0.3)', borderRadius:'12px', padding:'14px 20px', marginBottom:'1.5rem', display:'flex', alignItems:'center', gap:'10px'}}>
+                <span style={{fontSize:'1.3rem'}}>🔄</span>
+                <span>Computing live Panchangam from astronomical engine…</span>
+              </div>
+            )}
+            {liveError && (
+              <div style={{background:'rgba(220,50,50,0.1)', border:'1px solid rgba(220,50,50,0.3)', borderRadius:'12px', padding:'14px 20px', marginBottom:'1.5rem', display:'flex', alignItems:'center', gap:'10px'}}>
+                <span style={{fontSize:'1.3rem'}}>⚠️</span>
+                <span>{liveError}</span>
+                <button onClick={refreshLive} style={{marginLeft:'auto', padding:'6px 14px', borderRadius:'20px', border:'1px solid rgba(220,50,50,0.4)', background:'transparent', cursor:'pointer', fontWeight:600}}>Retry</button>
+              </div>
+            )}
+            {!liveLoading && !liveError && livePanchang && (
+              <div style={{background:'rgba(46,125,50,0.1)', border:'1px solid rgba(46,125,50,0.3)', borderRadius:'12px', padding:'14px 20px', marginBottom:'1.5rem', display:'flex', alignItems:'center', gap:'10px', flexWrap:'wrap'}}>
+                <span style={{fontSize:'1.3rem'}}>✅</span>
+                <span><strong>Live data loaded</strong> — {livePanchang.date}</span>
+                {livePanchang.festivals && <span style={{marginLeft:'8px', fontStyle:'italic'}}>🎉 {livePanchang.festivals}</span>}
+              </div>
+            )}
 
             <div className="panchangam-grid">
               {[
-                { label: '🌙 Tithi', key: 'tithi', help: 'Lunar day (1-30)' },
+                { label: '🌙 Tithi', key: 'tithi', help: 'Lunar day (1-30) — auto-calculated' },
                 { label: '📅 Vara (Day)', key: 'vara', help: 'Day of the week in Sanskrit' },
                 { label: '⭐ Nakshatra', key: 'nakshatra', help: 'Current lunar mansion' },
-                { label: '🧘 Yoga', key: 'yoga', help: 'Auspicious yoga name' },
-                { label: '🔑 Karana', key: 'karana', help: 'Half of a Tithi' },
-                { label: '🌅 Sunrise', key: 'sunrise', help: 'Today\'s sunrise time' },
-                { label: '🌇 Sunset', key: 'sunset', help: 'Today\'s sunset time' },
-                { label: '🌙 Moon Sign', key: 'moonSign', help: 'Current moon zodiac' },
-                { label: '⚠️ Rahu Kala', key: 'rahuKala', help: 'Inauspicious time period' },
-                { label: '⏰ Yamaghanda', key: 'yamaghanda', help: 'Inauspicious time period' },
-                { label: '✅ Abhijit Muhurta', key: 'abhijitMuhurta', help: 'Most auspicious time window' },
+                { label: '🧘 Yoga', key: 'yoga', help: 'Solar-lunar Yoga name' },
+                { label: '🔑 Karana', key: 'karana', help: 'Half of a Tithi period' },
+                { label: '🌕 Paksha', key: 'paksha', help: 'Shukla (waxing) or Krishna (waning)' },
+                { label: '📆 Masa (Month)', key: 'masa', help: 'Hindu lunar month name' },
+                { label: '🌅 Sunrise', key: 'sunrise', help: 'Today\'s sunrise time (IST)' },
+                { label: '🌇 Sunset', key: 'sunset', help: 'Today\'s sunset time (IST)' },
+                { label: '🌙 Moon Sign', key: 'moonSign', help: 'Current moon zodiac (Rashi)' },
+                { label: '⚠️ Rahu Kala', key: 'rahuKala', help: 'Inauspicious Rahu period' },
+                { label: '⏰ Yamaghanda', key: 'yamaghanda', help: 'Inauspicious Yama period' },
+                { label: '✅ Abhijit Muhurta', key: 'abhijitMuhurta', help: 'Most auspicious noon time window' },
               ].map(({ label, key, help }) => (
                 <div key={key} className="admin-form-card glass-card panchangam-field">
                   <label>{label}</label>
                   <small style={{opacity:0.6, display:'block', marginBottom:'6px'}}>{help}</small>
                   <input
                     type="text"
-                    value={panchangam[key]}
+                    value={panchangam[key] || ''}
                     onChange={(e) => setPanchangam({...panchangam, [key]: e.target.value})}
+                    placeholder={liveLoading ? 'Loading…' : ''}
                   />
                 </div>
               ))}
@@ -509,14 +782,21 @@ const AdminDashboard = () => {
               <small style={{opacity:0.6, display:'block', marginBottom:'6px'}}>Displayed as a highlighted banner to all visitors</small>
               <textarea
                 rows="3"
-                value={panchangam.specialNote}
+                value={panchangam.specialNote || ''}
                 onChange={(e) => setPanchangam({...panchangam, specialNote: e.target.value})}
+                placeholder={liveLoading ? 'Loading…' : 'Enter a special note for devotees…'}
               />
             </div>
 
             <div style={{marginTop:'2rem', display:'flex', gap:'15px', flexWrap:'wrap'}}>
               <button className="btn-primary" onClick={() => toast.success('Panchangam published for today! ✨')}>Publish Today's Panchangam</button>
-              <button style={{padding:'12px 24px', borderRadius:'50px', border:'1px solid var(--glass-border)', background:'transparent', cursor:'pointer', fontWeight:600}} onClick={() => setPanchangam({...panchangam, tithi:'Dwadashi (12th)', nakshatra:'Mrigashira', yoga:'Shiva', vara:'Mangalwar (Tuesday)'})}>🔄 Reset to Sample</button>
+              <button
+                style={{padding:'12px 24px', borderRadius:'50px', border:'1px solid var(--glass-border)', background:'transparent', cursor:'pointer', fontWeight:600, display:'flex', alignItems:'center', gap:'8px'}}
+                onClick={syncFromLive}
+                disabled={liveLoading || !!liveError}
+              >
+                🔄 Sync from Live Data
+              </button>
             </div>
           </div>
         )}

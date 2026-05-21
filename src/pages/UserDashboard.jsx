@@ -7,6 +7,7 @@ const UserDashboard = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('overview');
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -34,24 +35,50 @@ const UserDashboard = () => {
     <div className="dashboard-page animate-fade-in">
       {/* Sidebar */}
       <aside className="dashboard-sidebar glass-card">
+        {/* Brand */}
+        <div className="dashboard-brand">
+          <span className="dashboard-brand-icon">🕉️</span>
+          <span className="dashboard-brand-name">HanumanTemple</span>
+        </div>
+
+        {/* Back to Home */}
+        <Link to="/" className="dashboard-home-btn">
+          <span>←</span>
+          <span>Back to Home</span>
+        </Link>
+
+        {/* Hamburger toggle — only visible on mobile/tablet */}
+        <button
+          className={`dash-nav-toggle ${isNavOpen ? 'open' : ''}`}
+          onClick={() => setIsNavOpen(!isNavOpen)}
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        {/* User info — desktop only */}
         <div className="sidebar-user">
           <div className="user-avatar">🧑‍🦱</div>
           <h4>{user?.name}</h4>
           <span className="user-role-badge">Devotee</span>
         </div>
-        <nav className="sidebar-nav">
+
+        {/* Nav links */}
+        <nav className={`sidebar-nav ${isNavOpen ? 'nav-open' : ''}`}>
           {tabs.map((t) => (
             <button
               key={t.id}
               className={`sidebar-link ${activeTab === t.id ? 'active' : ''}`}
-              onClick={() => setActiveTab(t.id)}
+              onClick={() => { setActiveTab(t.id); setIsNavOpen(false); }}
             >
               {t.label}
             </button>
           ))}
-          <Link to="/seva" className="sidebar-link">🛕 Book New Seva</Link>
-          <Link to="/donate" className="sidebar-link">💰 Make Donation</Link>
-          <Link to="/japa" className="sidebar-link">📿 Japa Mala</Link>
+          <Link to="/seva" className="sidebar-link" onClick={() => setIsNavOpen(false)}>🛕 Book New Seva</Link>
+          <Link to="/donate" className="sidebar-link" onClick={() => setIsNavOpen(false)}>💰 Make Donation</Link>
+          <Link to="/japa" className="sidebar-link" onClick={() => setIsNavOpen(false)}>📿 Japa Mala</Link>
         </nav>
         <button className="sidebar-logout" onClick={handleLogout}>🚪 Logout</button>
       </aside>
