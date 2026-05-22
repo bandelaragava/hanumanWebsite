@@ -44,7 +44,7 @@ const UserDashboard = () => {
         {/* Back to Home */}
         <Link to="/" className="dashboard-home-btn">
           <span>←</span>
-          <span>Back to Home</span>
+          <span>Back to Website</span>
         </Link>
 
         {/* Hamburger toggle — only visible on mobile/tablet */}

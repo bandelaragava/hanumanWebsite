@@ -1,13 +1,13 @@
 .store-section,
 .live-section {
   background: transparent;
-  margin-top: 5rem;
+  margin-top: clamp(2rem, 5vw, 5rem);
 }
 
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 25px;
 }
 
 .product-card {
@@ -224,6 +224,26 @@
   }
 
   .product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+  }
+
+  .meditation-box {
+    padding: 25px;
+  }
+
+  .meditation-indicator {
+    width: 65px;
+    height: 65px;
+  }
+}
+
+@media (max-width: 400px) {
+  .product-grid {
     grid-template-columns: 1fr;
+  }
+
+  .video-stream {
+    height: 240px;
   }
 }

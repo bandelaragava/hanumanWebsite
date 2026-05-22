@@ -7,14 +7,21 @@ section:not(.hero-section) {
 @media (max-width: 992px) {
   section:not(.hero-section) {
     padding-top: 50px;
-    padding-bottom: 20px;
+    padding-bottom: 15px;
   }
 }
 
 @media (max-width: 768px) {
   section:not(.hero-section) {
-    padding-top: 50px;
-    padding-bottom: 20px;
+    padding-top: 40px;
+    padding-bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  section:not(.hero-section) {
+    padding-top: 30px;
+    padding-bottom: 8px;
   }
 }
 
@@ -25,7 +32,7 @@ section:not(.hero-section) {
 
 .footer {
   background: #FFF9F2;
-  padding: 80px 0 20px;
+  padding: clamp(40px, 8vw, 80px) 0 20px;
   border-top: 1px solid var(--glass-border);
 }
 
@@ -66,6 +73,8 @@ section:not(.hero-section) {
   margin-top: 30px;
   padding-right: 160px;
   /* Spacing to prevent overlap with the floating AI Guide button */
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
 .footer-bottom p {
@@ -123,12 +132,57 @@ section:not(.hero-section) {
 @media (max-width: 992px) {
   .footer-content {
     grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+
+  .footer-bottom {
+    padding-right: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-bottom {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+    padding-right: 20px;
+  }
+
+  .footer {
+    padding: 50px 0 20px;
   }
 }
 
 @media (max-width: 576px) {
   .footer-content {
     grid-template-columns: 1fr;
+    gap: 25px;
+  }
+
+  .footer {
+    padding: 40px 0 80px;
+    /* Extra bottom padding to clear the floating AI guide button */
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+
+  .footer-bottom p {
+    font-size: 0.82rem;
+  }
+
+  .legal-links {
+    font-size: 0.75rem;
   }
 }
 

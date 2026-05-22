@@ -21,7 +21,7 @@
 }
 
 .youth-content h3 {
-  font-size: 2.5rem;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
   margin-bottom: 20px;
 }
 
@@ -38,12 +38,12 @@
 
 .youth-image-container {
   position: relative;
-  height: 500px;
+  height: clamp(300px, 50vw, 500px);
   background: linear-gradient(45deg, #222, #333);
   border-radius: 30px;
   display: flex;
   align-items: flex-end;
-  padding: 40px;
+  padding: clamp(20px, 4vw, 40px);
   overflow: hidden;
 }
 
@@ -89,6 +89,7 @@
 @media (max-width: 992px) {
   .youth-grid {
     grid-template-columns: 1fr;
+    gap: 30px;
   }
   .youth-image-container {
     height: 400px;
@@ -97,13 +98,27 @@
 
 @media (max-width: 576px) {
   .youth-content h3 {
-    font-size: 1.8rem;
+    font-size: clamp(1.4rem, 6vw, 1.8rem);
   }
   .image-overlay-text {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    max-width: 160px;
   }
   .youth-image-container {
-    height: 350px;
-    padding: 20px;
+    height: 300px;
+    padding: 15px;
+    border-radius: 20px;
+  }
+  .tips-list li {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .youth-image-container {
+    height: 260px;
+  }
+  .youth-content h3 {
+    font-size: 1.3rem;
   }
 }

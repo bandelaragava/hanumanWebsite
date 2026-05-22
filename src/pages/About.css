@@ -4,22 +4,22 @@
 }
 
 .about-hero {
-  /* background: var(--saffron-gradient); */
-  padding: 70px 0 50px;
+  padding: clamp(40px, 7vw, 70px) 0 clamp(25px, 5vw, 50px);
   color: white;
   text-align: center;
 }
 
 .about-hero h1 {
-  font-size: 3.5rem;
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
   margin-bottom: 1rem;
 }
 
 .about-hero p {
-  font-size: 1.2rem;
+  font-size: clamp(0.95rem, 2vw, 1.2rem);
   opacity: 0.9;
   max-width: 700px;
   margin: 0 auto;
+  padding: 0 15px;
 }
 
 .about-intro {
@@ -215,19 +215,19 @@
 }
 
 .spiritual-significance {
-  padding: 8rem 0;
+  padding: clamp(4rem, 8vw, 8rem) 0;
 }
 
 .significance-card {
-  padding: 4rem;
+  padding: clamp(1.5rem, 4vw, 4rem);
   text-align: center;
 }
 
 .sig-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 3rem;
-  margin: 4rem 0;
+  gap: clamp(1rem, 3vw, 3rem);
+  margin: clamp(2rem, 4vw, 4rem) 0;
 }
 
 .sig-item h3 {
@@ -257,7 +257,7 @@
   .story-row,
   .sig-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 2rem;
   }
 
   .story-row.reverse {
@@ -265,10 +265,61 @@
   }
 
   .about-hero h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
   }
 
   .significance-card {
     padding: 2rem;
+  }
+
+  .about-page {
+    padding-top: 70px;
+  }
+
+  .about-hero {
+    padding: 50px 15px 35px;
+  }
+}
+
+@media (max-width: 768px) {
+  .contact-form-container {
+    padding: 1.5rem;
+  }
+
+  .chalisa-callout p {
+    font-size: 1.1rem;
+  }
+
+  .about-intro {
+    padding: 2.5rem 0;
+  }
+
+  .story-img-container {
+    padding: 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  .sig-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero {
+    padding: 40px 15px 25px;
+  }
+
+  .spiritual-significance {
+    padding: 3rem 0;
+  }
+
+  .chalisa-callout {
+    padding: 1.5rem;
+    margin: 2rem 0;
+  }
+
+  .deed-icon {
+    width: 42px;
+    height: 42px;
+    font-size: 1.6rem;
   }
 }

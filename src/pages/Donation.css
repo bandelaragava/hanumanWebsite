@@ -18,7 +18,7 @@
 }
 
 .donation-hero h1 {
-  font-size: 3rem;
+  font-size: clamp(1.8rem, 5vw, 3rem);
   margin-bottom: 20px;
 }
 
@@ -35,10 +35,10 @@
 
 .donation-container {
   display: grid;
-  margin-top: 5rem;
+  margin-top: clamp(2rem, 5vw, 5rem);
   grid-template-columns: 1.5fr 1fr;
   gap: 40px;
-  padding-bottom: 80px;
+  padding-bottom: clamp(40px, 8vw, 80px);
 }
 
 .donation-card {
@@ -94,7 +94,7 @@
 .donation-tiers {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 15px;
   margin-bottom: 30px;
 }
 
@@ -288,6 +288,43 @@
 
   .donation-hero h1 {
     font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .donation-tiers {
+    grid-template-columns: 1fr;
+  }
+
+  .tier-card {
+    padding: 18px 12px;
+  }
+
+  .donation-card {
+    padding: 20px 15px;
+  }
+
+  .step-content h3 {
+    font-size: 1.4rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .donation-hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .trust-badges {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .status-actions {
+    flex-direction: column;
+    width: 100%;
   }
 }
 

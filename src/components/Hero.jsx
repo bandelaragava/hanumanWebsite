@@ -11,15 +11,21 @@ const Hero = ({ heroImage }) => {
       <img src={heroImage} alt="Majestic Hanuman" className="hero-bg-image" />
       
       <div className="container hero-content animate-fade-in">
-        <h1 className="hero-title" style={{ whiteSpace: 'pre-line' }}>
-          {heroContent.title}
-        </h1>
-        <p className="hero-subtitle">
-          {heroContent.subtitle}
-        </p>
-        <div className="hero-actions">
-          <Link to="/devotion" className="btn-primary">Explore Devotion</Link>
-          <Link to="/live" className="btn-outline">Watch Live Aarti</Link>
+        <div className="hero-top-row">
+          <div className="hero-text-side">
+            <h1 className="hero-title" style={{ whiteSpace: 'pre-line' }}>
+              {heroContent.title}
+            </h1>
+            <p className="hero-subtitle">
+              {heroContent.subtitle}
+            </p>
+          </div>
+          <div className="hero-actions-side">
+            <div className="hero-actions">
+              <Link to="/devotion" className="btn-primary">Explore Devotion</Link>
+              <Link to="/live" className="btn-outline">Watch Live Aarti</Link>
+            </div>
+          </div>
         </div>
         
         <div className="hero-stats">

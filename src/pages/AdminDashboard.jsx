@@ -10,7 +10,7 @@ const AdminDashboard = () => {
   const { user, logout } = useAuth();
   const [activeTab, setActiveTab] = useState('overview');
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const { 
+  const {
     sevas, addSeva, deleteSeva, updateSeva,
     products, setProducts,
     timings, setTimings,
@@ -24,7 +24,7 @@ const AdminDashboard = () => {
     darshanSlots, setDarshanSlots,
     liveVideoUrl, setLiveVideoUrl,
   } = useData();
-  
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -76,20 +76,20 @@ const AdminDashboard = () => {
     if (livePanchang && !panchangam.tithi) {
       setPanchangam(prev => ({
         ...prev,
-        tithi:          livePanchang.tithi          || prev.tithi,
-        vara:           livePanchang.vara           || prev.vara,
-        nakshatra:      livePanchang.nakshatra      || prev.nakshatra,
-        yoga:           livePanchang.yoga           || prev.yoga,
-        karana:         livePanchang.karana         || prev.karana,
-        rahuKala:       livePanchang.rahuKala       || prev.rahuKala,
-        yamaghanda:     livePanchang.yamaghanda     || prev.yamaghanda,
+        tithi: livePanchang.tithi || prev.tithi,
+        vara: livePanchang.vara || prev.vara,
+        nakshatra: livePanchang.nakshatra || prev.nakshatra,
+        yoga: livePanchang.yoga || prev.yoga,
+        karana: livePanchang.karana || prev.karana,
+        rahuKala: livePanchang.rahuKala || prev.rahuKala,
+        yamaghanda: livePanchang.yamaghanda || prev.yamaghanda,
         abhijitMuhurta: livePanchang.abhijitMuhurta || prev.abhijitMuhurta,
-        sunrise:        livePanchang.sunrise        || prev.sunrise,
-        sunset:         livePanchang.sunset         || prev.sunset,
-        moonSign:       livePanchang.moonSign       || prev.moonSign,
-        paksha:         livePanchang.paksha         || prev.paksha,
-        masa:           livePanchang.masa           || prev.masa,
-        specialNote:    livePanchang.specialNote    || prev.specialNote,
+        sunrise: livePanchang.sunrise || prev.sunrise,
+        sunset: livePanchang.sunset || prev.sunset,
+        moonSign: livePanchang.moonSign || prev.moonSign,
+        paksha: livePanchang.paksha || prev.paksha,
+        masa: livePanchang.masa || prev.masa,
+        specialNote: livePanchang.specialNote || prev.specialNote,
       }));
     }
   }, [livePanchang]);
@@ -98,20 +98,20 @@ const AdminDashboard = () => {
   const syncFromLive = () => {
     if (!livePanchang) return;
     setPanchangam({
-      tithi:          livePanchang.tithi,
-      vara:           livePanchang.vara,
-      nakshatra:      livePanchang.nakshatra,
-      yoga:           livePanchang.yoga,
-      karana:         livePanchang.karana,
-      rahuKala:       livePanchang.rahuKala,
-      yamaghanda:     livePanchang.yamaghanda,
+      tithi: livePanchang.tithi,
+      vara: livePanchang.vara,
+      nakshatra: livePanchang.nakshatra,
+      yoga: livePanchang.yoga,
+      karana: livePanchang.karana,
+      rahuKala: livePanchang.rahuKala,
+      yamaghanda: livePanchang.yamaghanda,
       abhijitMuhurta: livePanchang.abhijitMuhurta,
-      sunrise:        livePanchang.sunrise,
-      sunset:         livePanchang.sunset,
-      moonSign:       livePanchang.moonSign,
-      paksha:         livePanchang.paksha,
-      masa:           livePanchang.masa,
-      specialNote:    livePanchang.specialNote,
+      sunrise: livePanchang.sunrise,
+      sunset: livePanchang.sunset,
+      moonSign: livePanchang.moonSign,
+      paksha: livePanchang.paksha,
+      masa: livePanchang.masa,
+      specialNote: livePanchang.specialNote,
     });
     toast.success('Synced with live astronomical data! 🕉️');
   };
@@ -155,10 +155,10 @@ const AdminDashboard = () => {
     if (!newItem.title || !newItem.date) return toast.error('Please fill mandatory fields');
     const dateObj = new Date(newItem.date);
     const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-    setEvents([...events, { 
-      id: Date.now(), 
-      title: newItem.title, 
-      date: dateObj.getDate().toString(), 
+    setEvents([...events, {
+      id: Date.now(),
+      title: newItem.title,
+      date: dateObj.getDate().toString(),
       month: months[dateObj.getMonth()],
       desc: newItem.desc || ''
     }]);
@@ -179,7 +179,7 @@ const AdminDashboard = () => {
   const handleExportDonations = () => {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(donations));
     const downloadAnchorNode = document.createElement('a');
-    downloadAnchorNode.setAttribute("href",     dataStr);
+    downloadAnchorNode.setAttribute("href", dataStr);
     downloadAnchorNode.setAttribute("download", "donations_report.json");
     document.body.appendChild(downloadAnchorNode);
     downloadAnchorNode.click();
@@ -199,7 +199,7 @@ const AdminDashboard = () => {
         {/* Back to Home */}
         <Link to="/" className="dashboard-home-btn">
           <span>←</span>
-          <span>Back to Home</span>
+          <span>Back to Website</span>
         </Link>
 
         {/* Hamburger toggle — only visible on mobile/tablet */}
@@ -249,7 +249,7 @@ const AdminDashboard = () => {
               <div className="stat-tile glass-card"><h4>{events.length}</h4><p>Live Events</p></div>
               <div className="stat-tile glass-card"><h4>{bookings.filter(b => b.status === 'Pending').length}</h4><p>New Bookings</p></div>
             </div>
-            
+
             <div className="upcoming-seva glass-card">
               <h3>⏳ Urgent Pending Approvals</h3>
               {bookings.filter(b => b.status === 'Pending').length > 0 ? (
@@ -271,7 +271,7 @@ const AdminDashboard = () => {
                   </div>
                 ))
               ) : (
-                <p style={{opacity: 0.6, fontStyle: 'italic'}}>All clear! No pending approvals.</p>
+                <p style={{ opacity: 0.6, fontStyle: 'italic' }}>All clear! No pending approvals.</p>
               )}
             </div>
           </div>
@@ -283,18 +283,18 @@ const AdminDashboard = () => {
             <div className="admin-form-card glass-card">
               <div className="form-group">
                 <label>Main Title (Use \n for new line)</label>
-                <textarea 
+                <textarea
                   rows="2"
-                  value={heroContent.title} 
-                  onChange={(e) => setHeroContent({...heroContent, title: e.target.value})}
+                  value={heroContent.title}
+                  onChange={(e) => setHeroContent({ ...heroContent, title: e.target.value })}
                 />
               </div>
               <div className="form-group">
                 <label>Subtitle / Description</label>
-                <textarea 
-                  rows="3" 
-                  value={heroContent.subtitle} 
-                  onChange={(e) => setHeroContent({...heroContent, subtitle: e.target.value})}
+                <textarea
+                  rows="3"
+                  value={heroContent.subtitle}
+                  onChange={(e) => setHeroContent({ ...heroContent, subtitle: e.target.value })}
                 />
               </div>
               <button className="btn-primary" onClick={() => toast.success('Hero content updated!')}>Save Changes</button>
@@ -305,11 +305,11 @@ const AdminDashboard = () => {
         {activeTab === 'available-sevas' && (
           <div className="admin-available-sevas">
             <h2 className="dash-title">🪔 Available Sevas</h2>
-            <p style={{opacity:0.7, marginBottom:'2rem'}}>Live preview of all sevas currently visible to devotees on the Booking page. Manage offerings from the <strong>Manage Sevas</strong> tab.</p>
+            <p style={{ opacity: 0.7, marginBottom: '2rem' }}>Live preview of all sevas currently visible to devotees on the Booking page. Manage offerings from the <strong>Manage Sevas</strong> tab.</p>
 
             {sevas.length === 0 ? (
-              <div className="glass-card" style={{padding:'3rem', textAlign:'center', opacity:0.7}}>
-                <div style={{fontSize:'3rem', marginBottom:'1rem'}}>🪔</div>
+              <div className="glass-card" style={{ padding: '3rem', textAlign: 'center', opacity: 0.7 }}>
+                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🪔</div>
                 <p>No sevas available. Add offerings from the <strong>Manage Sevas</strong> tab.</p>
               </div>
             ) : (
@@ -334,25 +334,25 @@ const AdminDashboard = () => {
               </div>
             )}
 
-            <div className="admin-form-card glass-card" style={{marginTop:'2rem'}}>
+            <div className="admin-form-card glass-card" style={{ marginTop: '2rem' }}>
               <h3>✨ Quick Add Seva</h3>
               <div className="form-row">
                 <div className="form-group">
                   <label>Seva Title</label>
-                  <input type="text" placeholder="e.g. Tailabhishekam" value={newItem.title || ''} onChange={(e) => setNewItem({...newItem, title: e.target.value})} />
+                  <input type="text" placeholder="e.g. Tailabhishekam" value={newItem.title || ''} onChange={(e) => setNewItem({ ...newItem, title: e.target.value })} />
                 </div>
                 <div className="form-group">
                   <label>Price</label>
-                  <input type="text" placeholder="e.g. ₹501" value={newItem.price || ''} onChange={(e) => setNewItem({...newItem, price: e.target.value})} />
+                  <input type="text" placeholder="e.g. ₹501" value={newItem.price || ''} onChange={(e) => setNewItem({ ...newItem, price: e.target.value })} />
                 </div>
               </div>
               <div className="form-group">
                 <label>Description</label>
-                <textarea placeholder="Briefly describe the seva..." value={newItem.desc || ''} rows="2" onChange={(e) => setNewItem({...newItem, desc: e.target.value})} />
+                <textarea placeholder="Briefly describe the seva..." value={newItem.desc || ''} rows="2" onChange={(e) => setNewItem({ ...newItem, desc: e.target.value })} />
               </div>
               <div className="form-group">
                 <label>Benefits</label>
-                <input type="text" placeholder="e.g. Health, relief from debt..." value={newItem.benefits || ''} onChange={(e) => setNewItem({...newItem, benefits: e.target.value})} />
+                <input type="text" placeholder="e.g. Health, relief from debt..." value={newItem.benefits || ''} onChange={(e) => setNewItem({ ...newItem, benefits: e.target.value })} />
               </div>
               <button className="btn-primary" onClick={handleAddSeva}>Add Seva Offering</button>
             </div>
@@ -362,25 +362,25 @@ const AdminDashboard = () => {
         {activeTab === 'sevas' && (
           <div className="admin-sevas">
             <h2 className="dash-title">📿 Manage Sevas</h2>
-            <div className="admin-form-card glass-card" style={{marginBottom: '2rem'}}>
+            <div className="admin-form-card glass-card" style={{ marginBottom: '2rem' }}>
               <h3>✨ Add New Seva Offering</h3>
               <div className="form-row">
                 <div className="form-group">
                   <label>Seva Title</label>
-                  <input type="text" placeholder="e.g. Tailabhishekam" value={newItem.title || ''} onChange={(e) => setNewItem({...newItem, title: e.target.value})} />
+                  <input type="text" placeholder="e.g. Tailabhishekam" value={newItem.title || ''} onChange={(e) => setNewItem({ ...newItem, title: e.target.value })} />
                 </div>
                 <div className="form-group">
                   <label>Price</label>
-                  <input type="text" placeholder="e.g. ₹501" value={newItem.price || ''} onChange={(e) => setNewItem({...newItem, price: e.target.value})} />
+                  <input type="text" placeholder="e.g. ₹501" value={newItem.price || ''} onChange={(e) => setNewItem({ ...newItem, price: e.target.value })} />
                 </div>
               </div>
               <div className="form-group">
                 <label>Description</label>
-                <textarea placeholder="Briefly describe the benefits..." value={newItem.desc || ''} rows="2" onChange={(e) => setNewItem({...newItem, desc: e.target.value})} />
+                <textarea placeholder="Briefly describe the benefits..." value={newItem.desc || ''} rows="2" onChange={(e) => setNewItem({ ...newItem, desc: e.target.value })} />
               </div>
               <button className="btn-primary" onClick={handleAddSeva}>Add Seva Offering</button>
             </div>
-            
+
             <div className="data-table glass-card">
               <table>
                 <thead>
@@ -404,21 +404,21 @@ const AdminDashboard = () => {
         {activeTab === 'store' && (
           <div className="admin-store">
             <h2 className="dash-title">🛒 Temple Store Inventory</h2>
-            <div className="admin-form-card glass-card" style={{marginBottom: '2rem'}}>
+            <div className="admin-form-card glass-card" style={{ marginBottom: '2rem' }}>
               <h3>📦 Add Product to Store</h3>
               <div className="form-row">
                 <div className="form-group">
                   <label>Product Name</label>
-                  <input type="text" placeholder="e.g. Bronze Idol" value={newItem.name || ''} onChange={(e) => setNewItem({...newItem, name: e.target.value})} />
+                  <input type="text" placeholder="e.g. Bronze Idol" value={newItem.name || ''} onChange={(e) => setNewItem({ ...newItem, name: e.target.value })} />
                 </div>
                 <div className="form-group">
                   <label>Price</label>
-                  <input type="text" placeholder="e.g. ₹4,999" value={newItem.price || ''} onChange={(e) => setNewItem({...newItem, price: e.target.value})} />
+                  <input type="text" placeholder="e.g. ₹4,999" value={newItem.price || ''} onChange={(e) => setNewItem({ ...newItem, price: e.target.value })} />
                 </div>
               </div>
               <div className="form-group">
                 <label>Category</label>
-                <select value={newItem.category || ''} onChange={(e) => setNewItem({...newItem, category: e.target.value})}>
+                <select value={newItem.category || ''} onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}>
                   <option value="">Select Category</option>
                   <option value="Idols">Idols</option>
                   <option value="Mala">Mala</option>
@@ -454,36 +454,36 @@ const AdminDashboard = () => {
           <div className="admin-timings">
             <h2 className="dash-title">⏰ Temple Timings</h2>
             {timings.map((t, idx) => (
-              <div key={t.id} className="admin-form-card glass-card" style={{marginBottom: '1rem', padding: '1.5rem 2.5rem'}}>
-                <div className="form-row" style={{alignItems: 'center'}}>
-                  <div className="form-group" style={{marginBottom: 0}}>
+              <div key={t.id} className="admin-form-card glass-card" style={{ marginBottom: '1rem', padding: '1.5rem 2.5rem' }}>
+                <div className="form-row" style={{ alignItems: 'center' }}>
+                  <div className="form-group" style={{ marginBottom: 0 }}>
                     <label>Timing Name</label>
-                    <input 
-                      type="text" 
-                      value={t.name} 
+                    <input
+                      type="text"
+                      value={t.name}
                       onChange={(e) => {
                         const newTimings = [...timings];
                         newTimings[idx].name = e.target.value;
                         setTimings(newTimings);
-                      }} 
+                      }}
                     />
                   </div>
-                  <div className="form-group" style={{marginBottom: 0}}>
+                  <div className="form-group" style={{ marginBottom: 0 }}>
                     <label>Duration / Value</label>
-                    <input 
-                      type="text" 
-                      value={t.value} 
+                    <input
+                      type="text"
+                      value={t.value}
                       onChange={(e) => {
                         const newTimings = [...timings];
                         newTimings[idx].value = e.target.value;
                         setTimings(newTimings);
-                      }} 
+                      }}
                     />
                   </div>
                 </div>
               </div>
             ))}
-            <div style={{marginTop: '2rem'}}>
+            <div style={{ marginTop: '2rem' }}>
               <button className="btn-primary" onClick={() => toast.success('Temple Timings updated successfully!')}>Update All Timings</button>
             </div>
           </div>
@@ -492,12 +492,12 @@ const AdminDashboard = () => {
         {activeTab === 'darshan-slots' && (
           <div className="admin-darshan-slots">
             <h2 className="dash-title">🕉️ Manage Darshan Slots</h2>
-            <p style={{opacity:0.7, marginBottom:'2rem'}}>
+            <p style={{ opacity: 0.7, marginBottom: '2rem' }}>
               Configure which time slots appear on the Darshan booking page. Toggle slots on/off, mark as Quota Full, adjust capacity, or reset booked counts.
             </p>
 
             {/* Add New Slot */}
-            <div className="admin-form-card glass-card" style={{marginBottom:'2rem'}}>
+            <div className="admin-form-card glass-card" style={{ marginBottom: '2rem' }}>
               <h3>➕ Add New Time Slot</h3>
               <div className="form-row">
                 <div className="form-group">
@@ -506,7 +506,7 @@ const AdminDashboard = () => {
                     type="text"
                     placeholder="HH:MM AM - HH:MM AM"
                     value={newItem.slotTime || ''}
-                    onChange={(e) => setNewItem({...newItem, slotTime: e.target.value})}
+                    onChange={(e) => setNewItem({ ...newItem, slotTime: e.target.value })}
                   />
                 </div>
                 <div className="form-group">
@@ -516,7 +516,7 @@ const AdminDashboard = () => {
                     min="1"
                     placeholder="e.g. 150"
                     value={newItem.slotCapacity || ''}
-                    onChange={(e) => setNewItem({...newItem, slotCapacity: e.target.value})}
+                    onChange={(e) => setNewItem({ ...newItem, slotCapacity: e.target.value })}
                   />
                 </div>
               </div>
@@ -545,8 +545,8 @@ const AdminDashboard = () => {
             {/* Slots Table */}
             <div className="data-table glass-card">
               {darshanSlots.length === 0 ? (
-                <div style={{padding:'3rem', textAlign:'center', opacity:0.6}}>
-                  <div style={{fontSize:'2.5rem', marginBottom:'1rem'}}>🕉️</div>
+                <div style={{ padding: '3rem', textAlign: 'center', opacity: 0.6 }}>
+                  <div style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>🕉️</div>
                   <p>No slots configured yet. Add a slot above.</p>
                 </div>
               ) : (
@@ -567,23 +567,23 @@ const AdminDashboard = () => {
                       const remaining = slot.totalCapacity - slot.bookedCount;
                       const effectivelyFull = slot.isFull;  // Only admin-controlled
                       return (
-                        <tr key={slot.id} style={{opacity: slot.isActive ? 1 : 0.5}}>
+                        <tr key={slot.id} style={{ opacity: slot.isActive ? 1 : 0.5 }}>
                           <td><strong>{slot.time}</strong></td>
                           <td>
                             <input
                               type="number"
                               min="1"
                               value={slot.totalCapacity}
-                              style={{width:'80px', padding:'6px', borderRadius:'8px', border:'1px solid var(--glass-border)', textAlign:'center'}}
+                              style={{ width: '80px', padding: '6px', borderRadius: '8px', border: '1px solid var(--glass-border)', textAlign: 'center' }}
                               onChange={(e) => {
                                 const val = parseInt(e.target.value);
                                 if (isNaN(val) || val < 1) return;
-                                setDarshanSlots(prev => prev.map((s, i) => i === idx ? {...s, totalCapacity: val} : s));
+                                setDarshanSlots(prev => prev.map((s, i) => i === idx ? { ...s, totalCapacity: val } : s));
                               }}
                             />
                           </td>
                           <td>
-                            <span style={{fontWeight:600}}>{slot.bookedCount}</span>
+                            <span style={{ fontWeight: 600 }}>{slot.bookedCount}</span>
                           </td>
                           <td>
                             <span style={{
@@ -596,12 +596,12 @@ const AdminDashboard = () => {
                           <td>
                             <button
                               onClick={() => {
-                                setDarshanSlots(prev => prev.map((s, i) => i === idx ? {...s, isActive: !s.isActive} : s));
+                                setDarshanSlots(prev => prev.map((s, i) => i === idx ? { ...s, isActive: !s.isActive } : s));
                                 toast.success(`Slot ${slot.isActive ? 'hidden from' : 'shown on'} booking page.`);
                               }}
                               style={{
-                                padding:'5px 14px', borderRadius:'20px', border:'none', cursor:'pointer',
-                                fontWeight:700, fontSize:'0.8rem',
+                                padding: '5px 14px', borderRadius: '20px', border: 'none', cursor: 'pointer',
+                                fontWeight: 700, fontSize: '0.8rem',
                                 background: slot.isActive ? 'rgba(46,125,50,0.15)' : 'rgba(150,150,150,0.15)',
                                 color: slot.isActive ? '#2e7d32' : '#888'
                               }}
@@ -612,12 +612,12 @@ const AdminDashboard = () => {
                           <td>
                             <button
                               onClick={() => {
-                                setDarshanSlots(prev => prev.map((s, i) => i === idx ? {...s, isFull: !s.isFull} : s));
+                                setDarshanSlots(prev => prev.map((s, i) => i === idx ? { ...s, isFull: !s.isFull } : s));
                                 toast.success(`Quota Full ${slot.isFull ? 'removed' : 'set'} for this slot.`);
                               }}
                               style={{
-                                padding:'5px 14px', borderRadius:'20px', border:'none', cursor:'pointer',
-                                fontWeight:700, fontSize:'0.8rem',
+                                padding: '5px 14px', borderRadius: '20px', border: 'none', cursor: 'pointer',
+                                fontWeight: 700, fontSize: '0.8rem',
                                 background: effectivelyFull ? 'rgba(198,40,40,0.12)' : 'rgba(255,153,51,0.12)',
                                 color: effectivelyFull ? '#c62828' : '#e65100'
                               }}
@@ -626,12 +626,12 @@ const AdminDashboard = () => {
                             </button>
                           </td>
                           <td>
-                            <div style={{display:'flex', gap:'8px', flexWrap:'wrap'}}>
+                            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                               <button
                                 className="btn-approve"
-                                style={{fontSize:'0.78rem', padding:'5px 10px'}}
+                                style={{ fontSize: '0.78rem', padding: '5px 10px' }}
                                 onClick={() => {
-                                  setDarshanSlots(prev => prev.map((s, i) => i === idx ? {...s, bookedCount: 0, isFull: false} : s));
+                                  setDarshanSlots(prev => prev.map((s, i) => i === idx ? { ...s, bookedCount: 0, isFull: false } : s));
                                   toast.success('Slot reset: booked count cleared.');
                                 }}
                               >
@@ -661,16 +661,16 @@ const AdminDashboard = () => {
         {activeTab === 'events' && (
           <div className="admin-events">
             <h2 className="dash-title">🎉 Manage Events</h2>
-            <div className="admin-form-card glass-card" style={{marginBottom: '2rem'}}>
+            <div className="admin-form-card glass-card" style={{ marginBottom: '2rem' }}>
               <h3>📅 Schedule New Event</h3>
               <div className="form-row">
                 <div className="form-group">
                   <label>Event Title</label>
-                  <input type="text" value={newItem.title || ''} placeholder="e.g. Hanuman Jayanti" onChange={(e) => setNewItem({...newItem, title: e.target.value})} />
+                  <input type="text" value={newItem.title || ''} placeholder="e.g. Hanuman Jayanti" onChange={(e) => setNewItem({ ...newItem, title: e.target.value })} />
                 </div>
                 <div className="form-group">
                   <label>Date</label>
-                  <input type="date" value={newItem.date || ''} onChange={(e) => setNewItem({...newItem, date: e.target.value})} />
+                  <input type="date" value={newItem.date || ''} onChange={(e) => setNewItem({ ...newItem, date: e.target.value })} />
                 </div>
               </div>
               <button className="btn-primary" onClick={handleAddEvent}>Add Event</button>
@@ -692,30 +692,30 @@ const AdminDashboard = () => {
         {activeTab === 'announcements' && (
           <div className="admin-announcements">
             <h2 className="dash-title">📢 Active Announcements</h2>
-            <div className="admin-form-card glass-card" style={{marginBottom: '2rem'}}>
+            <div className="admin-form-card glass-card" style={{ marginBottom: '2rem' }}>
               <h3>📢 Post New Alert</h3>
               <div className="form-group">
                 <label>Announcement Title</label>
-                <input type="text" placeholder="e.g. Temple Renovation Update" value={newItem.title || ''} onChange={(e) => setNewItem({...newItem, title: e.target.value})} />
+                <input type="text" placeholder="e.g. Temple Renovation Update" value={newItem.title || ''} onChange={(e) => setNewItem({ ...newItem, title: e.target.value })} />
               </div>
               <div className="form-group">
                 <label>Detailed Message</label>
-                <textarea placeholder="Provide details for the devotees..." value={newItem.message || ''} rows="3" onChange={(e) => setNewItem({...newItem, message: e.target.value})} />
+                <textarea placeholder="Provide details for the devotees..." value={newItem.message || ''} rows="3" onChange={(e) => setNewItem({ ...newItem, message: e.target.value })} />
               </div>
               <button className="btn-primary" onClick={() => {
-                if(!newItem.title || !newItem.message) return toast.error('Please fill all fields');
-                setAnnouncements([{...newItem, id: Date.now(), priority: 'Normal'}, ...announcements]);
+                if (!newItem.title || !newItem.message) return toast.error('Please fill all fields');
+                setAnnouncements([{ ...newItem, id: Date.now(), priority: 'Normal' }, ...announcements]);
                 setNewItem({});
                 toast.success('Announcement Published!');
               }}>Publish Announcement</button>
             </div>
-            
+
             <div className="announcement-list">
               {announcements.map(a => (
-                <div key={a.id} className="upcoming-item glass-card" style={{padding: '1rem', marginBottom: '10px'}}>
+                <div key={a.id} className="upcoming-item glass-card" style={{ padding: '1rem', marginBottom: '10px' }}>
                   <strong>{a.title}</strong>
-                  <p style={{fontSize: '0.9rem', opacity: 0.8}}>{a.message}</p>
-                  <button className="btn-reject" style={{marginTop: '10px'}} onClick={() => setAnnouncements(announcements.filter(an => an.id !== a.id))}>Remove Alert</button>
+                  <p style={{ fontSize: '0.9rem', opacity: 0.8 }}>{a.message}</p>
+                  <button className="btn-reject" style={{ marginTop: '10px' }} onClick={() => setAnnouncements(announcements.filter(an => an.id !== a.id))}>Remove Alert</button>
                 </div>
               ))}
             </div>
@@ -725,27 +725,27 @@ const AdminDashboard = () => {
         {activeTab === 'panchangam' && (
           <div className="admin-panchangam">
             <h2 className="dash-title">📜 Today's Panchangam</h2>
-            <p style={{opacity:0.7, marginBottom:'1.5rem'}}>Live astronomical data is auto-computed and shown below. You may review and override any field before publishing. Devotees see this on the home page.</p>
+            <p style={{ opacity: 0.7, marginBottom: '1.5rem' }}>Live astronomical data is auto-computed and shown below. You may review and override any field before publishing. Devotees see this on the home page.</p>
 
             {/* Live data status banner */}
             {liveLoading && (
-              <div style={{background:'rgba(255,153,51,0.1)', border:'1px solid rgba(255,153,51,0.3)', borderRadius:'12px', padding:'14px 20px', marginBottom:'1.5rem', display:'flex', alignItems:'center', gap:'10px'}}>
-                <span style={{fontSize:'1.3rem'}}>🔄</span>
+              <div style={{ background: 'rgba(255,153,51,0.1)', border: '1px solid rgba(255,153,51,0.3)', borderRadius: '12px', padding: '14px 20px', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ fontSize: '1.3rem' }}>🔄</span>
                 <span>Computing live Panchangam from astronomical engine…</span>
               </div>
             )}
             {liveError && (
-              <div style={{background:'rgba(220,50,50,0.1)', border:'1px solid rgba(220,50,50,0.3)', borderRadius:'12px', padding:'14px 20px', marginBottom:'1.5rem', display:'flex', alignItems:'center', gap:'10px'}}>
-                <span style={{fontSize:'1.3rem'}}>⚠️</span>
+              <div style={{ background: 'rgba(220,50,50,0.1)', border: '1px solid rgba(220,50,50,0.3)', borderRadius: '12px', padding: '14px 20px', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <span style={{ fontSize: '1.3rem' }}>⚠️</span>
                 <span>{liveError}</span>
-                <button onClick={refreshLive} style={{marginLeft:'auto', padding:'6px 14px', borderRadius:'20px', border:'1px solid rgba(220,50,50,0.4)', background:'transparent', cursor:'pointer', fontWeight:600}}>Retry</button>
+                <button onClick={refreshLive} style={{ marginLeft: 'auto', padding: '6px 14px', borderRadius: '20px', border: '1px solid rgba(220,50,50,0.4)', background: 'transparent', cursor: 'pointer', fontWeight: 600 }}>Retry</button>
               </div>
             )}
             {!liveLoading && !liveError && livePanchang && (
-              <div style={{background:'rgba(46,125,50,0.1)', border:'1px solid rgba(46,125,50,0.3)', borderRadius:'12px', padding:'14px 20px', marginBottom:'1.5rem', display:'flex', alignItems:'center', gap:'10px', flexWrap:'wrap'}}>
-                <span style={{fontSize:'1.3rem'}}>✅</span>
+              <div style={{ background: 'rgba(46,125,50,0.1)', border: '1px solid rgba(46,125,50,0.3)', borderRadius: '12px', padding: '14px 20px', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                <span style={{ fontSize: '1.3rem' }}>✅</span>
                 <span><strong>Live data loaded</strong> — {livePanchang.date}</span>
-                {livePanchang.festivals && <span style={{marginLeft:'8px', fontStyle:'italic'}}>🎉 {livePanchang.festivals}</span>}
+                {livePanchang.festivals && <span style={{ marginLeft: '8px', fontStyle: 'italic' }}>🎉 {livePanchang.festivals}</span>}
               </div>
             )}
 
@@ -767,32 +767,32 @@ const AdminDashboard = () => {
               ].map(({ label, key, help }) => (
                 <div key={key} className="admin-form-card glass-card panchangam-field">
                   <label>{label}</label>
-                  <small style={{opacity:0.6, display:'block', marginBottom:'6px'}}>{help}</small>
+                  <small style={{ opacity: 0.6, display: 'block', marginBottom: '6px' }}>{help}</small>
                   <input
                     type="text"
                     value={panchangam[key] || ''}
-                    onChange={(e) => setPanchangam({...panchangam, [key]: e.target.value})}
+                    onChange={(e) => setPanchangam({ ...panchangam, [key]: e.target.value })}
                     placeholder={liveLoading ? 'Loading…' : ''}
                   />
                 </div>
               ))}
             </div>
 
-            <div className="admin-form-card glass-card" style={{marginTop:'1.5rem'}}>
+            <div className="admin-form-card glass-card" style={{ marginTop: '1.5rem' }}>
               <label>📝 Special Note for Devotees</label>
-              <small style={{opacity:0.6, display:'block', marginBottom:'6px'}}>Displayed as a highlighted banner to all visitors</small>
+              <small style={{ opacity: 0.6, display: 'block', marginBottom: '6px' }}>Displayed as a highlighted banner to all visitors</small>
               <textarea
                 rows="3"
                 value={panchangam.specialNote || ''}
-                onChange={(e) => setPanchangam({...panchangam, specialNote: e.target.value})}
+                onChange={(e) => setPanchangam({ ...panchangam, specialNote: e.target.value })}
                 placeholder={liveLoading ? 'Loading…' : 'Enter a special note for devotees…'}
               />
             </div>
 
-            <div style={{marginTop:'2rem', display:'flex', gap:'15px', flexWrap:'wrap'}}>
+            <div style={{ marginTop: '2rem', display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
               <button className="btn-primary" onClick={() => toast.success('Panchangam published for today! ✨')}>Publish Today's Panchangam</button>
               <button
-                style={{padding:'12px 24px', borderRadius:'50px', border:'1px solid var(--glass-border)', background:'transparent', cursor:'pointer', fontWeight:600, display:'flex', alignItems:'center', gap:'8px'}}
+                style={{ padding: '12px 24px', borderRadius: '50px', border: '1px solid var(--glass-border)', background: 'transparent', cursor: 'pointer', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '8px' }}
                 onClick={syncFromLive}
                 disabled={liveLoading || !!liveError}
               >
@@ -805,60 +805,60 @@ const AdminDashboard = () => {
         {activeTab === 'energy' && (
           <div className="admin-energy">
             <h2 className="dash-title">🔱 Live Hanuman Energy Dashboard</h2>
-            <p style={{opacity:0.7, marginBottom:'2rem'}}>Real-time temple status updates. Edit and publish live metrics visible to devotees.</p>
+            <p style={{ opacity: 0.7, marginBottom: '2rem' }}>Real-time temple status updates. Edit and publish live metrics visible to devotees.</p>
 
             <div className="energy-stats-grid">
               <div className="energy-stat-card glass-card">
                 <div className="energy-icon">🙏</div>
                 <div className="energy-value">{energyData.activeDarshanCount}</div>
                 <div className="energy-label">Active Darshan Count</div>
-                <input type="number" value={energyData.activeDarshanCount} onChange={(e) => setEnergyData({...energyData, activeDarshanCount: e.target.value})} style={{marginTop:'10px', width:'100%', padding:'8px', borderRadius:'8px', border:'1px solid var(--glass-border)', textAlign:'center', fontSize:'1rem'}} />
+                <input type="number" value={energyData.activeDarshanCount} onChange={(e) => setEnergyData({ ...energyData, activeDarshanCount: e.target.value })} style={{ marginTop: '10px', width: '100%', padding: '8px', borderRadius: '8px', border: '1px solid var(--glass-border)', textAlign: 'center', fontSize: '1rem' }} />
               </div>
               <div className="energy-stat-card glass-card">
                 <div className="energy-icon">📿</div>
                 <div className="energy-value">{energyData.todaySevaCount}</div>
                 <div className="energy-label">Sevas Completed Today</div>
-                <input type="number" value={energyData.todaySevaCount} onChange={(e) => setEnergyData({...energyData, todaySevaCount: e.target.value})} style={{marginTop:'10px', width:'100%', padding:'8px', borderRadius:'8px', border:'1px solid var(--glass-border)', textAlign:'center', fontSize:'1rem'}} />
+                <input type="number" value={energyData.todaySevaCount} onChange={(e) => setEnergyData({ ...energyData, todaySevaCount: e.target.value })} style={{ marginTop: '10px', width: '100%', padding: '8px', borderRadius: '8px', border: '1px solid var(--glass-border)', textAlign: 'center', fontSize: '1rem' }} />
               </div>
               <div className="energy-stat-card glass-card">
                 <div className="energy-icon">💰</div>
                 <div className="energy-value">{energyData.todayDonationTotal}</div>
                 <div className="energy-label">Today's Donation Total</div>
-                <input type="text" value={energyData.todayDonationTotal} onChange={(e) => setEnergyData({...energyData, todayDonationTotal: e.target.value})} style={{marginTop:'10px', width:'100%', padding:'8px', borderRadius:'8px', border:'1px solid var(--glass-border)', textAlign:'center', fontSize:'1rem'}} />
+                <input type="text" value={energyData.todayDonationTotal} onChange={(e) => setEnergyData({ ...energyData, todayDonationTotal: e.target.value })} style={{ marginTop: '10px', width: '100%', padding: '8px', borderRadius: '8px', border: '1px solid var(--glass-border)', textAlign: 'center', fontSize: '1rem' }} />
               </div>
             </div>
 
             <div className="energy-controls-grid">
               <div className="admin-form-card glass-card">
                 <label>🛕 Temple Status</label>
-                <select value={energyData.templeStatus} onChange={(e) => setEnergyData({...energyData, templeStatus: e.target.value})} style={{width:'100%', padding:'12px', borderRadius:'10px', border:'1px solid var(--glass-border)', fontSize:'1rem', marginTop:'8px'}}>
+                <select value={energyData.templeStatus} onChange={(e) => setEnergyData({ ...energyData, templeStatus: e.target.value })} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid var(--glass-border)', fontSize: '1rem', marginTop: '8px' }}>
                   <option>Open</option>
                   <option>Closed</option>
                   <option>Temporarily Closed</option>
                 </select>
-                <div style={{marginTop:'10px', padding:'8px 14px', borderRadius:'20px', display:'inline-block', background: statusColors[energyData.templeStatus] + '20', color: statusColors[energyData.templeStatus], fontWeight:700, fontSize:'0.85rem'}}>
+                <div style={{ marginTop: '10px', padding: '8px 14px', borderRadius: '20px', display: 'inline-block', background: statusColors[energyData.templeStatus] + '20', color: statusColors[energyData.templeStatus], fontWeight: 700, fontSize: '0.85rem' }}>
                   ● {energyData.templeStatus}
                 </div>
               </div>
 
               <div className="admin-form-card glass-card">
                 <label>👥 Current Crowd Level</label>
-                <select value={energyData.crowdLevel} onChange={(e) => setEnergyData({...energyData, crowdLevel: e.target.value})} style={{width:'100%', padding:'12px', borderRadius:'10px', border:'1px solid var(--glass-border)', fontSize:'1rem', marginTop:'8px'}}>
+                <select value={energyData.crowdLevel} onChange={(e) => setEnergyData({ ...energyData, crowdLevel: e.target.value })} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid var(--glass-border)', fontSize: '1rem', marginTop: '8px' }}>
                   <option>Low</option>
                   <option>Moderate</option>
                   <option>High</option>
                 </select>
-                <div style={{marginTop:'10px', padding:'8px 14px', borderRadius:'20px', display:'inline-block', background: crowdColors[energyData.crowdLevel] + '20', color: crowdColors[energyData.crowdLevel], fontWeight:700, fontSize:'0.85rem'}}>
+                <div style={{ marginTop: '10px', padding: '8px 14px', borderRadius: '20px', display: 'inline-block', background: crowdColors[energyData.crowdLevel] + '20', color: crowdColors[energyData.crowdLevel], fontWeight: 700, fontSize: '0.85rem' }}>
                   ● {energyData.crowdLevel} Crowd
                 </div>
               </div>
 
               <div className="admin-form-card glass-card">
                 <label>🎵 Live Chanting Status</label>
-                <div style={{marginTop:'12px', display:'flex', alignItems:'center', gap:'15px'}}>
+                <div style={{ marginTop: '12px', display: 'flex', alignItems: 'center', gap: '15px' }}>
                   <button
-                    onClick={() => setEnergyData({...energyData, liveChantingActive: !energyData.liveChantingActive})}
-                    style={{padding:'10px 20px', borderRadius:'30px', border:'none', cursor:'pointer', fontWeight:700, background: energyData.liveChantingActive ? 'linear-gradient(135deg, #2e7d32, #388e3c)' : '#ccc', color:'white', transition:'all 0.3s ease'}}
+                    onClick={() => setEnergyData({ ...energyData, liveChantingActive: !energyData.liveChantingActive })}
+                    style={{ padding: '10px 20px', borderRadius: '30px', border: 'none', cursor: 'pointer', fontWeight: 700, background: energyData.liveChantingActive ? 'linear-gradient(135deg, #2e7d32, #388e3c)' : '#ccc', color: 'white', transition: 'all 0.3s ease' }}
                   >
                     {energyData.liveChantingActive ? '🔊 Live — Click to Stop' : '🔇 Off — Click to Start'}
                   </button>
@@ -867,30 +867,30 @@ const AdminDashboard = () => {
 
               <div className="admin-form-card glass-card">
                 <label>🪔 Special Puja Today</label>
-                <input type="text" value={energyData.specialPujaToday} onChange={(e) => setEnergyData({...energyData, specialPujaToday: e.target.value})} style={{width:'100%', padding:'12px', borderRadius:'10px', border:'1px solid var(--glass-border)', fontSize:'1rem', marginTop:'8px'}} />
+                <input type="text" value={energyData.specialPujaToday} onChange={(e) => setEnergyData({ ...energyData, specialPujaToday: e.target.value })} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid var(--glass-border)', fontSize: '1rem', marginTop: '8px' }} />
               </div>
 
               <div className="admin-form-card glass-card">
                 <label>🕐 Last Updated</label>
-                <input type="text" value={energyData.lastUpdated} onChange={(e) => setEnergyData({...energyData, lastUpdated: e.target.value})} style={{width:'100%', padding:'12px', borderRadius:'10px', border:'1px solid var(--glass-border)', fontSize:'1rem', marginTop:'8px'}} placeholder="e.g. 12:00 PM" />
+                <input type="text" value={energyData.lastUpdated} onChange={(e) => setEnergyData({ ...energyData, lastUpdated: e.target.value })} style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid var(--glass-border)', fontSize: '1rem', marginTop: '8px' }} placeholder="e.g. 12:00 PM" />
               </div>
 
-              <div className="admin-form-card glass-card" style={{gridColumn: '1 / -1'}}>
+              <div className="admin-form-card glass-card" style={{ gridColumn: '1 / -1' }}>
                 <label>📺 Live Video Stream URL</label>
-                <input 
-                  type="text" 
-                  value={liveVideoUrl || ''} 
-                  onChange={(e) => setLiveVideoUrl(e.target.value)} 
-                  style={{width:'100%', padding:'12px', borderRadius:'10px', border:'1px solid var(--glass-border)', fontSize:'1rem', marginTop:'8px'}} 
-                  placeholder="e.g. https://www.youtube.com/watch?v=xxx or direct video URL" 
+                <input
+                  type="text"
+                  value={liveVideoUrl || ''}
+                  onChange={(e) => setLiveVideoUrl(e.target.value)}
+                  style={{ width: '100%', padding: '12px', borderRadius: '10px', border: '1px solid var(--glass-border)', fontSize: '1rem', marginTop: '8px' }}
+                  placeholder="e.g. https://www.youtube.com/watch?v=xxx or direct video URL"
                 />
-                <span style={{fontSize:'0.85rem', opacity:0.6, marginTop:'6px', display:'block'}}>
+                <span style={{ fontSize: '0.85rem', opacity: 0.6, marginTop: '6px', display: 'block' }}>
                   Supports standard YouTube watch links, shorts, vimeo embed links, or direct MP4 stream URLs.
                 </span>
               </div>
             </div>
 
-            <div style={{marginTop:'2rem'}}>
+            <div style={{ marginTop: '2rem' }}>
               <button className="btn-primary" onClick={() => toast.success('Live energy status published! 🔱')}>🔱 Publish Live Status</button>
             </div>
           </div>
@@ -899,11 +899,11 @@ const AdminDashboard = () => {
         {activeTab === 'upcoming' && (
           <div className="admin-upcoming">
             <h2 className="dash-title">🗓️ Upcoming Events Calendar</h2>
-            <p style={{opacity:0.7, marginBottom:'2rem'}}>A read-only calendar view of all scheduled events. Add or remove events from the Manage Events tab.</p>
+            <p style={{ opacity: 0.7, marginBottom: '2rem' }}>A read-only calendar view of all scheduled events. Add or remove events from the Manage Events tab.</p>
 
             {events.length === 0 ? (
-              <div className="glass-card" style={{padding:'3rem', textAlign:'center', opacity:0.7}}>
-                <div style={{fontSize:'3rem', marginBottom:'1rem'}}>📅</div>
+              <div className="glass-card" style={{ padding: '3rem', textAlign: 'center', opacity: 0.7 }}>
+                <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>📅</div>
                 <p>No upcoming events scheduled. Add events from the <strong>Manage Events</strong> tab.</p>
               </div>
             ) : (
@@ -926,21 +926,21 @@ const AdminDashboard = () => {
               </div>
             )}
 
-            <div className="admin-form-card glass-card" style={{marginTop:'2rem'}}>
+            <div className="admin-form-card glass-card" style={{ marginTop: '2rem' }}>
               <h3>📅 Quick Add Event</h3>
               <div className="form-row">
                 <div className="form-group">
                   <label>Event Title</label>
-                  <input type="text" value={newItem.title || ''} placeholder="e.g. Hanuman Jayanti" onChange={(e) => setNewItem({...newItem, title: e.target.value})} />
+                  <input type="text" value={newItem.title || ''} placeholder="e.g. Hanuman Jayanti" onChange={(e) => setNewItem({ ...newItem, title: e.target.value })} />
                 </div>
                 <div className="form-group">
                   <label>Date</label>
-                  <input type="date" value={newItem.date || ''} onChange={(e) => setNewItem({...newItem, date: e.target.value})} />
+                  <input type="date" value={newItem.date || ''} onChange={(e) => setNewItem({ ...newItem, date: e.target.value })} />
                 </div>
               </div>
               <div className="form-group">
                 <label>Description</label>
-                <input type="text" value={newItem.desc || ''} placeholder="Brief description for devotees..." onChange={(e) => setNewItem({...newItem, desc: e.target.value})} />
+                <input type="text" value={newItem.desc || ''} placeholder="Brief description for devotees..." onChange={(e) => setNewItem({ ...newItem, desc: e.target.value })} />
               </div>
               <button className="btn-primary" onClick={handleAddEvent}>Add to Calendar</button>
             </div>
@@ -976,7 +976,7 @@ const AdminDashboard = () => {
                             }}>✘</button>
                           </div>
                         )}
-                        {b.status !== 'Pending' && <span style={{opacity: 0.5}}>No Action</span>}
+                        {b.status !== 'Pending' && <span style={{ opacity: 0.5 }}>No Action</span>}
                       </td>
                     </tr>
                   ))}
@@ -989,7 +989,7 @@ const AdminDashboard = () => {
         {activeTab === 'donations' && (
           <div className="admin-donations">
             <h2 className="dash-title">💝 Donation Records</h2>
-            <button className="btn-primary" style={{marginBottom: '1.5rem'}} onClick={handleExportDonations}>⬇ Export Report (JSON)</button>
+            <button className="btn-primary" style={{ marginBottom: '1.5rem' }} onClick={handleExportDonations}>⬇ Export Report (JSON)</button>
             <div className="data-table glass-card">
               <table>
                 <thead>
@@ -1017,8 +1017,8 @@ const AdminDashboard = () => {
             <div className="admin-form-card glass-card">
               <div className="form-group">
                 <label>Select Section to Edit</label>
-                <select 
-                  value={newItem.devotionId || 'chalisa'} 
+                <select
+                  value={newItem.devotionId || 'chalisa'}
                   onChange={(e) => {
                     const id = e.target.value;
                     setNewItem({
@@ -1037,42 +1037,42 @@ const AdminDashboard = () => {
                 <div className="animate-fade-in">
                   <div className="form-group">
                     <label>Title</label>
-                    <input 
-                      type="text" 
-                      value={newItem.title} 
-                      onChange={(e) => setNewItem({...newItem, title: e.target.value})} 
+                    <input
+                      type="text"
+                      value={newItem.title}
+                      onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
                     />
                   </div>
                   <div className="form-group">
                     <label>Subtitle</label>
-                    <input 
-                      type="text" 
-                      value={newItem.subtitle} 
-                      onChange={(e) => setNewItem({...newItem, subtitle: e.target.value})} 
+                    <input
+                      type="text"
+                      value={newItem.subtitle}
+                      onChange={(e) => setNewItem({ ...newItem, subtitle: e.target.value })}
                     />
                   </div>
                   <div className="form-group">
                     <label>YouTube Video URL (Embed Link)</label>
-                    <input 
-                      type="text" 
-                      value={newItem.videoUrl} 
-                      onChange={(e) => setNewItem({...newItem, videoUrl: e.target.value})} 
+                    <input
+                      type="text"
+                      value={newItem.videoUrl}
+                      onChange={(e) => setNewItem({ ...newItem, videoUrl: e.target.value })}
                     />
                   </div>
                   <div className="form-group">
                     <label>Audio URL (.mp3)</label>
-                    <input 
-                      type="text" 
-                      value={newItem.audioUrl} 
-                      onChange={(e) => setNewItem({...newItem, audioUrl: e.target.value})} 
+                    <input
+                      type="text"
+                      value={newItem.audioUrl}
+                      onChange={(e) => setNewItem({ ...newItem, audioUrl: e.target.value })}
                     />
                   </div>
                   <div className="form-group">
                     <label>Scripture Text</label>
-                    <textarea 
-                      rows="8" 
-                      value={newItem.text} 
-                      onChange={(e) => setNewItem({...newItem, text: e.target.value})} 
+                    <textarea
+                      rows="8"
+                      value={newItem.text}
+                      onChange={(e) => setNewItem({ ...newItem, text: e.target.value })}
                     />
                   </div>
                   <button className="btn-primary" onClick={() => {
@@ -1106,11 +1106,11 @@ const AdminDashboard = () => {
               <div className="form-row" style={{ alignItems: 'flex-end' }}>
                 <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
                   <label>Mantra Text</label>
-                  <input 
-                    type="text" 
-                    placeholder="e.g. Om Namo Bhagavate Vasudevaya" 
-                    value={newItem.mantraText || ''} 
-                    onChange={(e) => setNewItem({ ...newItem, mantraText: e.target.value })} 
+                  <input
+                    type="text"
+                    placeholder="e.g. Om Namo Bhagavate Vasudevaya"
+                    value={newItem.mantraText || ''}
+                    onChange={(e) => setNewItem({ ...newItem, mantraText: e.target.value })}
                   />
                 </div>
                 <button className="btn-primary" style={{ height: '48px', padding: '0 30px' }} onClick={handleAddMantra}>Add Mantra</button>
@@ -1130,8 +1130,8 @@ const AdminDashboard = () => {
                     <tr key={m}>
                       <td><strong>{m}</strong></td>
                       <td>
-                        <button 
-                          className="btn-reject" 
+                        <button
+                          className="btn-reject"
                           onClick={() => {
                             if (japaMantras.length <= 1) {
                               toast.error('You must keep at least one mantra!');

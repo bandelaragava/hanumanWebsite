@@ -208,7 +208,7 @@
 /* ---- Stat Tiles ---- */
 .overview-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   gap: 20px;
   margin-bottom: 2.5rem;
 }
@@ -678,12 +678,12 @@
   }
 
   .dash-title {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.4rem;
+    margin-bottom: 1.2rem;
   }
 
   .admin-form-card {
-    padding: 1.5rem;
+    padding: 1.2rem;
   }
 
   .admin-form-card .form-row {
@@ -691,7 +691,7 @@
   }
 
   .overview-stats {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -852,6 +852,21 @@
 /* Responsive for new sections */
 @media (max-width: 1024px) {
   .energy-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .panchangam-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .timeline-event {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 600px) {
+  .energy-stats-grid {
     grid-template-columns: 1fr;
   }
 
@@ -859,9 +874,25 @@
     grid-template-columns: 1fr;
   }
 
-  .timeline-event {
-    flex-wrap: wrap;
-    gap: 12px;
+  .overview-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-tile {
+    padding: 1rem;
+  }
+
+  .energy-stat-card {
+    padding: 1.2rem;
+  }
+
+  .energy-value {
+    font-size: 1.8rem;
+  }
+
+  .upcoming-item {
+    flex-direction: column;
+    gap: 0.8rem;
   }
 }
 

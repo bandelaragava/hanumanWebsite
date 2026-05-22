@@ -8,7 +8,7 @@
 }
 
 .welcome-content .section-title {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.6rem, 4vw, 3rem);
   margin-top: -2rem;
   margin-bottom: 1.5rem;
 }
@@ -21,9 +21,9 @@
 
 .home-features {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2.5rem;
 }
 
 .feature-card {
@@ -329,7 +329,7 @@
 
 /* Events Section */
 .events-section {
-  padding: 6rem 0;
+  padding: clamp(4rem, 7vw, 6rem) 0;
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -403,9 +403,43 @@
   }
 }
 
+@media (max-width: 576px) {
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .events-section {
+    padding: 4rem 0;
+  }
+
+  .welcome-section {
+    padding: 2rem 1rem;
+  }
+
+  .home-features {
+    grid-template-columns: 1fr;
+  }
+
+  .feature-card {
+    padding: 1.8rem;
+  }
+
+  .timings-section {
+    padding: 3rem 0;
+  }
+
+  .panchang-header h3 {
+    font-size: 1.4rem;
+  }
+
+  .panchangam-card {
+    padding: 1.5rem;
+  }
+}
+
 /* Divine Story Section */
 .divine-story {
-  padding: 8rem 0;
+  padding: clamp(4rem, 8vw, 8rem) 0;
 }
 
 .story-grid {
@@ -514,7 +548,7 @@
 
 /* Sankat Mochan Section */
 .sankat-mochan {
-  padding: 6rem 0;
+  padding: clamp(4rem, 7vw, 6rem) 0;
   margin-top: 0;
   background: var(--bg-light);
   text-align: center;
@@ -599,6 +633,536 @@
 
   .divine-story,
   .sankat-mochan {
-    padding: 5rem 0;
+    padding: clamp(3rem, 6vw, 5rem) 0;
   }
+
+  .problem-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .problem-card {
+    padding: 20px;
+  }
+
+  .problem-icon {
+    font-size: 2rem;
+  }
+
+  .problem-label {
+    font-size: 0.95rem;
+  }
+
+  .solution-details {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+   PANCHANGAM SHARE SYSTEM STYLES
+   ───────────────────────────────────────────────────────────────────────────── */
+
+.panchang-share-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 153, 51, 0.1);
+  border: 1px solid rgba(255, 153, 51, 0.3);
+  color: var(--primary);
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.panchang-share-trigger:hover {
+  background: var(--saffron-gradient);
+  color: white;
+  border-color: transparent;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(255, 153, 51, 0.2);
+}
+
+.share-icon-svg {
+  stroke: currentColor;
+}
+
+/* Modal Overlay backdrop */
+.panchang-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(43, 31, 21, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  padding: 20px;
+  animation: fadeInBg 0.3s ease-out forwards;
+}
+
+@keyframes fadeInBg {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Modal Window */
+.panchang-modal-content {
+  background: linear-gradient(135deg, #ffffff 0%, #fdfaf6 100%);
+  border-radius: 24px;
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid rgba(255, 153, 51, 0.35);
+  box-shadow: 0 25px 60px rgba(43, 31, 21, 0.3);
+  position: relative;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: slideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Close Icon Button */
+.panchang-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(255, 153, 51, 0.1);
+  border: 1px solid rgba(255, 153, 51, 0.2);
+  color: var(--text-secondary);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: var(--transition);
+  z-index: 10;
+}
+
+.panchang-modal-close:hover {
+  background: var(--saffron-gradient);
+  color: white;
+  border-color: transparent;
+  transform: rotate(90deg);
+}
+
+/* Preview Card Graphic */
+.panchang-modal-card-preview {
+  background: #fffdfb;
+  border: 3px double rgba(255, 153, 51, 0.5);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(255, 120, 30, 0.08);
+  flex-shrink: 0;
+}
+
+.panchang-card-banner {
+  background: var(--saffron-gradient);
+  color: white;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.panchang-card-banner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.06;
+  background-image: radial-gradient(circle at 1px 1px, white 1px, transparent 0);
+  background-size: 8px 8px;
+  pointer-events: none;
+}
+
+.panchang-card-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.panchang-card-logo .panchang-logo-svg {
+  width: 34px;
+  height: 34px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+}
+
+.panchang-logo-wordmark {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  line-height: 1.1;
+}
+
+.panchang-logo-main {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 800;
+  font-size: 1.15rem;
+  letter-spacing: 0.08em;
+  color: #ffffff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+}
+
+.panchang-logo-sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #ffe0cc;
+  opacity: 0.95;
+  background: none !important;
+  -webkit-text-fill-color: #ffe0cc !important;
+  background-clip: initial !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.panchang-card-banner-title h2 {
+  font-size: 1.25rem;
+  margin: 2px 0 0 0;
+  color: white;
+  -webkit-text-fill-color: white;
+  background: none;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.panchang-card-date {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 4px;
+  color: white;
+}
+
+.panchang-card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #fdfaf6;
+}
+
+.panchang-card-festival {
+  background: rgba(255, 153, 51, 0.1);
+  border: 1px solid rgba(255, 153, 51, 0.25);
+  border-radius: 8px;
+  padding: 8px 10px;
+  text-align: center;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.panchang-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 12px;
+}
+
+.p-card-item {
+  border-bottom: 1px solid rgba(255, 153, 51, 0.08);
+  padding-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+}
+
+.p-card-item .label {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  margin-bottom: 1px;
+}
+
+.p-card-item .value {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.panchang-card-sun {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px dashed rgba(255, 153, 51, 0.2);
+  border-bottom: 1px dashed rgba(255, 153, 51, 0.2);
+  padding: 8px 0;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.panchang-card-muhurta {
+  display: flex;
+  gap: 8px;
+}
+
+.muhurta-pill {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.muhurta-pill span {
+  font-weight: 600;
+  opacity: 0.85;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  margin-bottom: 1px;
+}
+
+.muhurta-pill strong {
+  font-weight: 700;
+}
+
+.muhurta-pill.good {
+  background: rgba(46, 125, 50, 0.08);
+  border: 1px solid rgba(46, 125, 50, 0.25);
+  color: #2e7d32;
+}
+
+.muhurta-pill.bad {
+  background: rgba(198, 40, 40, 0.06);
+  border: 1px solid rgba(198, 40, 40, 0.2);
+  color: #c62828;
+}
+
+.panchang-card-note {
+  background: rgba(255, 153, 51, 0.06);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 8px 8px 0;
+  padding: 8px 10px;
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.panchang-card-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-top: 1px solid rgba(255, 153, 51, 0.1);
+  padding-top: 10px;
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  text-align: center;
+  gap: 1px;
+}
+
+.panchang-card-footer strong {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Sharing Actions Grid */
+.panchang-share-options {
+  text-align: center;
+  border-top: 1px solid rgba(255, 153, 51, 0.15);
+  padding-top: 16px;
+}
+
+.panchang-share-options h4 {
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.share-buttons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 8px;
+}
+
+.share-opt-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px 4px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  background: white;
+  border: 1px solid rgba(255, 153, 51, 0.2);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.share-opt-btn svg {
+  transition: transform 0.2s ease;
+}
+
+.share-opt-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(255, 153, 51, 0.08);
+  border-color: var(--primary);
+}
+
+.share-opt-btn:hover svg {
+  transform: scale(1.1);
+}
+
+/* Platform branding colors */
+.share-opt-btn.whatsapp {
+  color: #25d366;
+}
+.share-opt-btn.whatsapp:hover {
+  background: rgba(37, 211, 102, 0.05);
+  border-color: #25d366;
+}
+
+.share-opt-btn.telegram {
+  color: #0088cc;
+}
+.share-opt-btn.telegram:hover {
+  background: rgba(0, 136, 204, 0.05);
+  border-color: #0088cc;
+}
+
+.share-opt-btn.twitter {
+  color: #14171a;
+}
+.share-opt-btn.twitter:hover {
+  background: rgba(20, 23, 26, 0.04);
+  border-color: #14171a;
+}
+
+.share-opt-btn.copy {
+  color: var(--primary);
+}
+.share-opt-btn.copy:hover {
+  background: rgba(255, 153, 51, 0.05);
+  border-color: var(--primary);
+}
+.share-opt-btn.copy.copied {
+  background: rgba(46, 125, 50, 0.08);
+  border-color: #2e7d32;
+  color: #2e7d32;
+}
+
+.share-opt-btn.system {
+  color: #a855f7;
+}
+.share-opt-btn.system:hover {
+  background: rgba(168, 85, 247, 0.05);
+  border-color: #a855f7;
+}
+
+@media (max-width: 480px) {
+  .panchang-modal-content {
+    max-height: 95vh;
+    padding: 16px;
+    gap: 16px;
+  }
+  .panchang-card-grid {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .share-buttons-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.share-section {
+  text-align: left;
+}
+
+.share-section h4 {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  display: block;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.share-buttons-grid.primary-actions {
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+}
+
+.share-opt-btn.copy-img {
+  color: #3b82f6;
+}
+.share-opt-btn.copy-img:hover {
+  background: rgba(59, 130, 246, 0.05);
+  border-color: #3b82f6;
+}
+
+.share-opt-btn.download-img {
+  color: #10b981;
+}
+.share-opt-btn.download-img:hover {
+  background: rgba(16, 185, 129, 0.05);
+  border-color: #10b981;
+}
+
+.share-opt-btn.system-share {
+  color: #8b5cf6;
+}
+.share-opt-btn.system-share:hover {
+  background: rgba(139, 92, 246, 0.05);
+  border-color: #8b5cf6;
+}
+
+.share-opt-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: rgba(255, 153, 51, 0.1) !important;
+  background: #fdfaf6 !important;
 }

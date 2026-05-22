@@ -11,7 +11,7 @@
 }
 
 .seva-hero h1 {
-  font-size: 3.5rem;
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
   margin-bottom: 1rem;
 }
 
@@ -23,7 +23,7 @@
 }
 
 .seva-container {
-  padding: 2rem 20px 8rem;
+  padding: 2rem 20px clamp(4rem, 8vw, 8rem);
 }
 
 .seva-selection {
@@ -183,7 +183,7 @@
 .darshan-selection-wrapper {
   max-width: 850px;
   margin: 0 auto;
-  padding: 40px;
+  padding: clamp(20px, 4vw, 40px);
 }
 
 .darshan-type-selector {
@@ -338,7 +338,7 @@
 .booking-form-wrapper {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 40px;
+  padding: clamp(15px, 4vw, 40px);
 }
 
 .btn-back {
@@ -537,7 +537,7 @@
   }
   
   .seva-hero h1 {
-    font-size: 2.5rem;
+    font-size: clamp(1.6rem, 6vw, 2.5rem);
   }
   
   .darshan-submit-row {
@@ -557,5 +557,39 @@
   .tab-btn {
     width: 100%;
     justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .seva-hero {
+    padding: 40px 15px 25px;
+  }
+
+  .seva-hero p {
+    font-size: 0.95rem;
+  }
+
+  .seva-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .seva-card {
+    padding: 1.5rem;
+  }
+
+  .slots-grid {
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .darshan-type-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .total-tickets-price {
+    font-size: 1rem;
+  }
+
+  .booking-status {
+    padding: 25px 15px;
   }
 }
